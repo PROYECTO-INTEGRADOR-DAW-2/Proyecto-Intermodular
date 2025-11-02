@@ -1,0 +1,6 @@
+{
+  "productes": [
+    "zapatillas": [{}],
+    "pantalones": [{}]
+  ]
+}
