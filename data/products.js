@@ -1,6 +1,0 @@
-{
-  "productes": [
-    "zapatillas": [{}],
-    "pantalones": [{}]
-  ]
-}
