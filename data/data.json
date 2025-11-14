@@ -1,0 +1,57 @@
+{
+  "productos": [
+    {
+      "id": "1",
+      "Categoria": "Zapatillas",
+      "Nombre": "Nike Pegasus  EasyOn",
+      "Precio": 139,
+      "Talla": "L",
+      "Color": "blanco",
+      "Stock": 20,
+      "Ajuste": "Ajustado",
+      "Sexo": "Hombre",
+      "Descripcion": "Esta es una zapatilla muy chula",
+      "Altura": "Normal",
+      "Deporte": "Trail",
+      "Oferta": "NO"
+    }
+  ],
+  "usuaris": [
+    {
+      "id": "1",
+      "nom_usuari": "Alvaro",
+      "contrasenya": "$2y$10$Uqsyavjjcs92JJPfTfotsO3B/A.8yiZeWe7.qWmGR/Y1XLtdeZCTi",
+      "email": "albertdangavicol@hola.com",
+      "nom": "ALBERT",
+      "cognoms": "Vidal",
+      "data_registre": "2025-11-14T14:44:56+00:00"
+    },
+    {
+      "id": "2",
+      "nom_usuari": "batoi",
+      "contrasenya": "$2y$10$L2mQRY./OrE5aoaGk.iDyum43Dbn4u2iGDMuWnxvGco5..I/WcoQi",
+      "email": "albertdangavicol@gmail.com",
+      "nom": "Albert",
+      "cognoms": "Vidal",
+      "data_registre": "2025-11-14T14:46:06+00:00"
+    },
+    {
+      "id": "3",
+      "nom_usuari": "Kevin",
+      "contrasenya": "$2y$10$MVwEPqr1mylforVr4KW85./.EYeHnf30SuCmKIpI7hsg4DHgE.d5e",
+      "email": "kevin@gmail.com",
+      "nom": "Kevin",
+      "cognoms": "Vidal",
+      "data_registre": "2025-11-14T16:20:05+00:00"
+    },
+    {
+      "id": "4",
+      "nom_usuari": "Jorge",
+      "contrasenya": "$2y$10$.ZoOL/f/7EiU6xgDXSIuGu49bnk1fIiqKIJ9/t51wXVTnqXFqVJga",
+      "email": "albertdangavicol@gmail.com",
+      "nom": "Jorge",
+      "cognoms": "asdasdasd",
+      "data_registre": "2025-11-14T17:10:37+00:00"
+    }
+  ]
+}

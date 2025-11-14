@@ -1,14 +1,17 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 
-
-.clearfix::after {
-    content: "";
-    display: table;
-    clear: both;
+main {
+    grid-template-areas: 
+    "header"
+    "novedades"
+    "mas-comprados"
+    "footer";
 }
 
 * {
-    font-family: 'Inter', sans-serif;
+    font-family: "Oswald", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }
 
 html, body {
@@ -16,81 +19,79 @@ html, body {
     padding: 0;
 }
 
+body {
+    background-color: #F5F5F5;
+}
+
 /* ---------------- CABECERA ---------------- */
 
 #nav-section {
+    display: grid;
+    grid-template-areas: "logo nav search icons";
+    grid-template-columns: 10% 1fr 2fr 1fr;
     height: 100px;
     line-height: 100px;
     position: fixed;
-    background-color: white;
-    box-shadow: 0 0 19px grey;
+    background-color: #1F1F1F;
+    box-shadow: 0 0 19px rgba(0,0,0,0.3);
     width: 100%;
     z-index: 1;
 }
 
 #icon-nav {
-    float: right;
+    grid-area: icons;
+    justify-self: end;
+    margin-right: 20px;
+    align-self: center;
+    width: 30%;
     list-style-type: none;
     margin: 0; 
     padding: 0; 
-    
-    margin-top: 30px;
-    margin-right: 2em;   
-}
-
-
-#icon-nav li {
-    float: left;
-    margin-left: 15px; 
+    display: grid;
+    grid-template-columns: 50% 50%;
 }
 
 #icon-nav img {
     width: 40px;
     height: 40px; 
-    display: block; 
-}
-
-
-#nav-section::after {
-    content: "";
-    display: table;
-    clear: both;
+    display: block;
 }
 
 .logoPagina {
+    grid-area: logo; 
     height: 100px;
-    float: left;
     margin-left: 10px;
 }
 
 #nav-section #main-nav {
-    margin-top: 17px;
-    float: left;
+    grid-area: nav; 
     list-style-type: none;
     padding: 0;
-    margin-left: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
 }
 
 #nav-section #main-nav li {
-    float: left;
-    margin-right: 20px;
-    padding: 20px 10px;
-    border: 1px solid black;
+    align-content: center;
+    text-align: center;
+    padding: 20px;
+    border: 1px solid #D72631;
     border-radius: 10px;
     transition: background-color 0.5s ease;
     line-height: normal;
 }
 
 #nav-section #main-nav li:hover {
-    background-color: black;
+    background-color: #D72631;
 }
 
 #nav-section #main-nav li:hover a {
-    color: white;
+    color: #FFFFFF;
 }
 
 #nav-section #main-nav a {
-    color: black;
+    color: #FFFFFF;
     text-decoration: none;
     cursor: pointer;
     transition: color 0.5s ease;
@@ -98,45 +99,47 @@ html, body {
 }
 
 #nav-section input[type="text"] {
-    float: left;
+    grid-area: search;
+    align-self: center;
+    justify-self: center;
     height: 25px;
     width: 500px;
     padding: 10px;
     border: 2px solid transparent;
-    background-color: #D9D9D9;
+    background-color: #FFFFFF;
     border-radius: 50px;
-    margin-right: 5em;
     transition: width 0.5s ease, border-color 0.5s ease;
-    margin-top: 25px;
 }
 
 #nav-section input[type="text"]:focus {
     outline: none;
-    border-color: black;
+    border-color: #D72631;
     width: 550px;
 }
 
 /* ---------------- HEADER ---------------- */
 
 header {
+    display: grid;
+    grid-area: header;
     height: 70vh;
     width: 100%;
     background-image: url('../img/fondopagina.jpg');
     background-size: cover;
-    color: white;
+    color: #FFFFFF;
     position: relative;
 }
 
 header p {
-    color: white;
-    text-shadow: 2px 2px 2px gray;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 2px #1F1F1F;
 }
 
 header h1 {
     font-weight: 500;
     font-size: 100px;
     margin: 10px;
-    text-shadow: 5px 2px 2px gray;
+    text-shadow: 5px 2px 2px #1F1F1F;
 }
 
 header > div {
@@ -151,222 +154,155 @@ header > div {
 /* ---------------- NOVEDADES ---------------- */
 
 #novedades {
-    margin-top: 50px;
-    width: 100%;
     text-align: center;
+    grid-area: novedades;
 }
 
 #novedades > h2 {
-    font-size: 50px;
+    font-size: 75px;
+    color: #1F1F1F;
 }
 
 #brands {
-    margin-top: 50px;
-    width: 100%;
+    display: grid;
+    grid-template-areas: "box1 box2 box3 box4";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 10px;
+    gap: 20px;
 }
 
+.brand1 { grid-area: box1; }
+.brand2 { grid-area: box2; }
+.brand3 { grid-area: box3; }
+.brand4 { grid-area: box4; }
 
-#brands::after {
-    content: "";
-    display: table;
-    clear: both;
-}
-
-.brand {
-    float: left;
-    margin-left: 2.5em;
-    margin-right: 2.5em;
-}
-
-.brand a {
-    display: block;
-    text-align: center;
+/* Nuevo contenedor vertical para imagen grande y logo */
+#brands article a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .fotoMasNovedades {
+    border-radius: 20px;
     object-fit: cover;
-    width: 300px;
-    height: 350px;
-    display: block;
-    margin: 0 auto;
+    width: 325px;
+    height: 375px;
+    margin-bottom: 10px;
 }
 
 .fotoSimbolo,
 .fotoSimboloAdidas {
+    border-radius: 20px;
     object-fit: cover;
-    width: 100px;
-    height: 100px;
-    display: block;
-    margin: 15px auto 0 auto;
+    width: 125px;
+    height: 125px;
 }
 
 /* ---------------- MAS COMPRADOS ---------------- */
 
 #mas-comprados {
-    margin-top: 50px;
-    width: 100%;
-    height: 50em;
     text-align: center;
+    grid-area: mas-comprados;
 }
 
 #mas-comprados > h2 {
-    font-size: 50px;
+    font-size: 75px;
+    color: #1F1F1F;
 }
 
 #carousel-wrapper {
-    position: relative;
-    width: 90%;
-    margin: 0 auto;
-    overflow: hidden; 
+    overflow-x: auto;
 }
 
-#products {
-    width: max-content;
-    overflow: hidden; 
-    margin-top: 50px;
+#products{
+    display: grid;
+    grid-template-areas: "box1 box2 box3 box4";
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin: 20px;
+    gap: 30px;
 }
 
-#products::after {
-    content: "";
-    display: table;
-    clear: both;
+#products > article > div{
+    background-color: #FFFFFF;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
 }
 
-
-.product {
-    float: left;
-    width: 400px;
-    margin-right: 40px;
-    padding: 20px;
-    text-align: center;
-}
+.product1 { grid-area: box2; display: grid; }
+.product2 { grid-area: box1; display: grid; }
+.product3 { grid-area: box3; display: grid; }
+.product4 { grid-area: box4; display: grid; }
 
 .fotoMasComprados {
     object-fit: cover;
-    width: 300px;
+    width: 260px;
     height: 375px;
     transition: transform 0.4s ease;
-}
-
-.product:hover .fotoMasComprados {
-    transform: scale(1.1);
-}
-
-/* Botones carrusel */
-button {
-    background-color: transparent;
-    border: none;
-}
-
-#despl-izq,
-#despl-der {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    cursor: pointer;
-    padding: 0;
-}
-
-#despl-izq {
-    left: -50px;
-}
-
-#despl-der {
-    right: -50px;
-}
-
-#despl-der > img,
-#despl-izq > img {
-    width: 50px;
-    height: 50px;
-    transition: opacity 0.3s ease;
-}
-
-#despl-der:hover img,
-#despl-izq:hover img {
-    opacity: 0.7;
 }
 
 /* ---------------- DESCRIPCIÓN PRODUCTO ---------------- */
 
 .prod-desc {
+    color: #1F1F1F;
     margin-top: 10px;
     transition: height 0.5s ease;
 }
 
 .prod-desc strong {
     font-size: 20px;
+    color: #1F1F1F;
 }
 
 .prod-desc .button {
     width: 100%;
     text-align: center;
-    display: block;
 }
 
 .product a {
-    display: block;
     overflow: hidden;
+}
+
+/* ---------------- BOTONES ---------------- */
+
+.button {
+    display: block;
+    text-decoration: none;
+    text-align: center;
+    color: #FFFFFF;
+    background-color: #D72631;
+    border: 1px solid #D72631;
+    padding: 20px 0;
+    transition: background-color 0.5s ease, color 0.5s ease;
+    width: 100%;
+}
+
+.button:hover {
+    background-color: #1F1F1F;
+    color: #FFFFFF;
 }
 
 /* ---------------- FOOTER ---------------- */
 
-footer {
+footer > div{
     height: 400px;
-    background-color: #F2F0F0;
+    background-color: #1F1F1F;
     padding-top: 30px;
+    display: grid;
+    grid-template-areas: "recursos sobre-nosotros otros";
+    padding: 20px; 
+    justify-items: center;
+    gap: 1em;
 }
 
-footer > div {
-    margin: 0 auto;
-    width: 90%;
-}
+#recursos { grid-area: recursos; }
+#about-us { grid-area: sobre-nosotros; }
+#suscripcion-pedidos { grid-area: otros; }
 
-footer > div::after {
-    content: "";
-    display: table;
-    clear: both;
-}
+footer ul { list-style-type: none; padding: 0; }
 
-footer > div > section {
-    float: left;
-    width: 30%;
-    margin: 0 1.5%;
-    text-align: left;
-}
+footer a { text-decoration: none; color: #FFFFFF; }
+footer p { color: #FFFFFF; }
+footer h3 { color: #FFFFFF; }
 
-footer ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-footer a {
-    display: block;
-    text-decoration: none;
-    color: #707070;
-}
-
-footer p {
-    color: #707070;
-}
-
-footer li:not(li:first-child) {
-    margin-top: 5px;
-}
-
-.button {
-    text-decoration: none;
-    text-align: center;
-    color: black;
-    border: 1px solid black;
-    width: 50%;
-    margin-top: 10px;
-    padding: 20px 0;
-    transition: background-color 0.5s ease, color 0.5s ease;
-    display: block;
-}
-
-.button:hover {
-    background-color: black;
-    color: white;
-}
+footer a:hover { color: #D72631; }
