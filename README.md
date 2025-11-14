@@ -1,8 +1,11 @@
 # 🛒 Ecommerce-PI
 
 ## 👤 Autors
-- Nom alumne 1
-- Nom alumne 2
+- Albert Danga Vicol
+- Jorge Vidal Gisbert
+
+## Roles
+[Roles](https://github.com/PROYECTO-INTEGRADOR-DAW-2/Proyecto-Intermodular/blob/main/docs/rols.md)
 
 ## 🎯 Objectiu del projecte
 Desenvolupar una aplicació web de comerç electrònic com a projecte final de DAW.
@@ -31,3 +34,14 @@ Desenvolupar una aplicació web de comerç electrònic com a projecte final de D
 - Gantt
 - Markdown
 - HTML, CSS, JS
+
+## Plan de riesgos laborales
+[Riesgos](https://github.com/PROYECTO-INTEGRADOR-DAW-2/Proyecto-Intermodular/blob/main/docs/RISKS.md)
+
+[Riesgos individuales](https://github.com/PROYECTO-INTEGRADOR-DAW-2/Proyecto-Intermodular/blob/main/docs/riscos_individual.md)
+
+## Sprints
+- [Sprint 1](https://github.com/PROYECTO-INTEGRADOR-DAW-2/Proyecto-Intermodular/blob/main/docs/Sprint1.md)
+
+
+

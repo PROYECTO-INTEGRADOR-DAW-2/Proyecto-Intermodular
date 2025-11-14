@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Canviat a min-height per si el formulari és llarg */
+    margin: 0;
+    padding: 20px 0; /* Afegeix padding per a 'scroll' */
+}
+.container {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    width: 400px; /* Una mica més ample per al perfil */
+}
+h2 {
+    text-align: center;
+    color: #333;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+form div {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #555;
+}
+input[type="text"],
+input[type="password"],
+input[type="email"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box; 
+}
+button {
+    width: 100%;
+    padding: 12px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+}
+button:hover {
+    background-color: #0056b3;
+}
+
+/* --- Estils afegits per a profile.php --- */
+
+/* Estil per al botó de Tancar Sessió */
+.logout-button {
+    display: inline-block;
+    float: right;
+    padding: 8px 12px;
+    background-color: #6c757d; /* Color gris */
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 15px; /* Espai per sota */
+}
+.logout-button:hover {
+    background-color: #5a6268;
+}
+
+/* Estil per als camps desactivats */
+input:disabled {
+    background-color: #e9ecef; /* Gris clar */
+    color: #6c757d;
+    cursor: not-allowed;
+}
+
+/* Línia horitzontal */
+hr {
+    border: 0;
+    height: 1px;
+    background-color: #ddd;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Missatges d'error/èxit */
+.error {
+    color: #D8000C;
+    background-color: #FFD2D2;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 15px;
+}
+.success {
+    color: #4F8A10;
+    background-color: #DFF2BF;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 15px;
+}

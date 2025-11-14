@@ -3,6 +3,8 @@
     use PhpOffice\PhpSpreadsheet\IOFactory;
     $productos = [];
     $tiposAjuste = ["Ajustado", "Holgado"];
+    $tallasValidas = ["S","M","L","XL"];
+    
 
     function importar_datos($rutaFichero) {
 
@@ -19,7 +21,37 @@
                 
                 foreach($celdaIterator as $celda) {
                     switch ($celda->getColumn()) {
-                        case "A" : $filaAsociativa["Categoria"] = (string)$celda->getValue();
+
+                        case "A":
+                            $filaAsociativa["Categoria"] = (string) $celda->getValue();
+                            break;
+
+                        case "B":
+                            $filaAsociativa["Nombre"] = (string) $celda->getValue();
+                            break;
+
+                        case "C":
+                            $filaAsociativa["Precio"] = (float) $celda->getValue();
+                            break;
+
+                        case "D":   // Tamaño
+                            $valor = $celda->getValue();
+
+                            // ✔ Si es número (excel puede enviarlo como int o float)
+                            if (is_numeric($valor)) {
+                                $filaAsociativa["Talla"] = (string)$valor;
+                                break;
+                            }
+
+                            // ✔ Si no es número → comprobar si está en tallas válidas
+                            if (in_array($valor, $tallasValidas)) {
+                                $filaAsociativa["Talla"] = $valor;
+                                break;
+                            }
+
+                            // ❌ Si llega aquí → error
+                            echo "Error: la talla '$valor' no es válida";
+                            die();
                     }
                 }
             }

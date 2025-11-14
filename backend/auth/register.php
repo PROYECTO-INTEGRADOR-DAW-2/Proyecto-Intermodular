@@ -33,40 +33,56 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     } else {
         // --- SI TODAS LAS VALIDACIONES SON CORRECTAS ---
 
-        // 6. Preparar URL para consultar duplicados
-        $check_url = users_url . '?nom_usuari=' . urlencode($nom_usuari);
+       $response_all = file_get_contents(users_url);
+
+    if ($response_all === false) {
+        $error = "Error: No se pudo conectar con la API.";
+    } else {
+        $all_users = json_decode($response_all, true);
         
-        // Ejecutar la consulta GET 
-        $response_check = file_get_contents($check_url);
+        $usuario_duplicado = false;
+        $max_id = 0; // Iniciar el ID máximo
 
-        if ($response_check === false) {
-            $error = "Error: No se pudo conectar con la API para verificar el usuario.";
+        // 7. Recorrer usuarios para verificar duplicados y encontrar MAX ID
+        foreach ($all_users as $user) {
+            
+            // Comprobar duplicado (ignorando mayúsculas/minúsculas)
+            if (isset($user['nom_usuari']) && strtolower($user['nom_usuari']) === strtolower($nom_usuari)) {
+                $usuario_duplicado = true;
+            }
+            
+            // Encontrar el ID numérico más alto
+            if (isset($user['id']) && is_numeric($user['id']) && $user['id'] > $max_id) {
+                $max_id = (int)$user['id'];
+            }
+        }
+
+        // 7b. Comprobar si se encontró duplicado
+        if ($usuario_duplicado) {
+            $error = "Error: El nombre de usuario '{$nom_usuari}' ya existe.";
         } else {
-            // Convertir la respuesta JSON (del GET) a un array PHP
-            $existing_users = json_decode($response_check, true);
+            
+            // --- El usuario NO existe, se puede registrar ---
 
-            // 7. Comprobar si el array de usuarios NO está vacío
-            if (!empty($existing_users)) {
-                $error = "Error: El nombre de usuario '{$nom_usuari}' ya existe.";
-            } else {
-                
-                // --- El usuario NO existe, se puede registrar ---
+            // 8. Calcular el nuevo ID (Max ID + 1)
+            $nuevo_id = (string)($max_id + 1);
 
-                // 8. Cifrar la contraseña 
-                $contrasenya_cifrada = password_hash($contrasenya, PASSWORD_DEFAULT);
+            // 8b. Cifrar la contraseña 
+            $contrasenya_cifrada = password_hash($contrasenya, PASSWORD_DEFAULT);
 
-                // 9. Preparar el array de datos para enviar a la API
-                $data = [
-                    "nom_usuari" => $nom_usuari,
-                    "contrasenya" => $contrasenya_cifrada, // Se envía la cifrada
-                    "email" => $email,
-                    "nom" => $nom,
-                    "cognoms" => $cognoms,
-                    "data_registre" => date('c') // Fecha en formato ISO
-                ];
+            // 9. Preparar el array de datos para enviar a la API (INCLUYENDO EL ID)
+            $data = [
+                "id" => $nuevo_id, // <-- ¡Importante! Enviamos el ID numérico
+                "nom_usuari" => $nom_usuari,
+                "contrasenya" => $contrasenya_cifrada, // Se envía la cifrada
+                "email" => $email,
+                "nom" => $nom,
+                "cognoms" => $cognoms,
+                "data_registre" => date('c') // Fecha en formato ISO
+            ];
 
-                // Convertir el array PHP a formato JSON
-                $payload = json_encode($data);
+            // Convertir el array PHP a formato JSON
+            $payload = json_encode($data);
 
                 // 10. Configurar la petición POST para enviar el JSON
                 $options = [
