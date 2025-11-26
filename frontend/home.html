@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/home.css">
+    <link rel="stylesheet" href="./css/style.css">
     <title>Home</title>
 </head>
 <body>
@@ -35,7 +35,6 @@
         <section id="novedades">
             <h2>Novedades</h2>
             <div id="brands">
-
                 <article class="brand1">
                     <a href="#">
                         <img src="./img/logoNike.jpg" alt="imagen-logo" class="fotoMasNovedades">
@@ -67,8 +66,12 @@
             </div>
 
             <div id="videos-carusel">
-                <div>
-                    <a href="#"><video src="vid/Video nike.mp4" autoplay loop muted width="100%"></video></a>
+                <div class="video-container">
+                   <video src="vid/Zapatillas nike.mp4" autoplay loop muted width="100%"></video>
+                   <div class="video-desc">
+                        <h2>Nuevas Nike Gato 2.0</h2>
+                        <a href="#" class="button">Ver producto</a>
+                   </div>
                 </div>
             </div>
         </section>
@@ -89,16 +92,16 @@
                         </div>
                     </div>
                         <a href="#" class="button">Añadir al carrito</a>
-                    </article>
+                </article>
                     
                 <article class="product2">
                     <div>
                         <a href="#">
-                            <img src="./img/CalcetinesMasCmprado.png "alt="imagen-logo" class="fotoMasComprados">
+                            <img src="./img/ZapasNikeMasComprado.png"alt="imagen-logo" class="fotoMasComprados">
                         </a>
                         <div class="prod-desc">
-                            <strong>Nike mercurial</strong>
-                            <p>100,00 €</p>
+                            <strong> Nike Zoomx 2060</strong>
+                            <p>120,00 €</p>
                         </div>
                     </div>
                     <a href="#" class="button">Añadir al carrito</a>
@@ -120,11 +123,11 @@
                     <article class="product4">
                         <div>
                             <a href="#">
-                                <img src="./img/adidasZapatillas-removebg-preview.png" alt="imagen-logo" class="fotoMasComprados">
+                                <img src="./img/CalcetinesMasCmprado.png" alt="imagen-logo" class="fotoMasComprados">
                             </a>
                             <div class="prod-desc">
-                                <strong>Zapatilla Terrex Agravic</strong>
-                                <p>99,99€</p>
+                                <strong>Calcetines Nike</strong>
+                                <p>19,99€</p>
                             </div>
                         </div>
                         <a href="#" class="button">Añadir al carrito</a>
@@ -168,6 +171,6 @@
         </div>
     </footer>
     </main>
-    <script src="scripts/carusel.js"></script>
+    <script src="js/anims.js" defer></script>
 </body>
 </html>

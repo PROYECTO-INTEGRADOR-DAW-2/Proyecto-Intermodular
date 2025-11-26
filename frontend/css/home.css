@@ -4,6 +4,7 @@ main {
     grid-template-areas: 
     "header"
     "novedades"
+    "video"
     "mas-comprados"
     "footer";
 }
@@ -23,7 +24,7 @@ body {
     background-color: #F5F5F5;
 }
 
-/* ---------------- CABECERA ---------------- */
+
 
 #nav-section {
     display: grid;
@@ -117,7 +118,7 @@ body {
     width: 550px;
 }
 
-/* ---------------- HEADER ---------------- */
+
 
 header {
     display: grid;
@@ -133,13 +134,21 @@ header {
 header p {
     color: #FFFFFF;
     text-shadow: 2px 2px 2px #1F1F1F;
+    animation: fadeIn 0.5s ease-in-out;
+    opacity: 0;
+    animation-delay: 0.2s;
+    animation-fill-mode: forwards
 }
+
 
 header h1 {
     font-weight: 500;
     font-size: 100px;
     margin: 10px;
     text-shadow: 5px 2px 2px #1F1F1F;
+    opacity: 0;
+    animation: fadeIn 0.5s ease-in-out;
+    animation-fill-mode: forwards
 }
 
 header > div {
@@ -151,7 +160,7 @@ header > div {
     width: 100%;
 }
 
-/* ---------------- NOVEDADES ---------------- */
+
 
 #novedades {
     text-align: center;
@@ -169,6 +178,11 @@ header > div {
     grid-template-columns: 1fr 1fr 1fr 1fr;
     margin: 10px;
     gap: 20px;
+    transition: transform 1.0s ease-in-out, opacity 1.5s ease-in-out;
+}
+
+.translate {
+    transform: translateY(-40px);
 }
 
 .brand1 { grid-area: box1; }
@@ -176,12 +190,41 @@ header > div {
 .brand3 { grid-area: box3; }
 .brand4 { grid-area: box4; }
 
-/* Nuevo contenedor vertical para imagen grande y logo */
-#brands article a {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+
+
+.video-container {
+    grid-area: video;
+    position: relative; 
 }
+
+.video-desc {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(39, 38, 38, 0.25);
+    color: white;
+    display: grid;
+    grid-template-areas: 
+        "texto"
+        "boton";
+    grid-template-columns: 1fr;
+    align-content: center;
+    justify-items: center;
+    gap: 20px;              
+}
+
+.video-desc h2 {
+    grid-area: texto;
+    margin: 0;
+    font-size: 75px;
+    color: white;
+}
+
+.video-desc a {
+    grid-area: boton;
+    margin: 0;
+    width: 20%; 
+}
+
 
 .fotoMasNovedades {
     border-radius: 20px;
@@ -199,7 +242,7 @@ header > div {
     height: 125px;
 }
 
-/* ---------------- MAS COMPRADOS ---------------- */
+
 
 #mas-comprados {
     text-align: center;
@@ -229,6 +272,14 @@ header > div {
     border-top-right-radius: 20px;
 }
 
+#products > article  img{
+    transition: transform 0.5s ease-in-out;
+}
+
+#products > article:hover img{
+    transform: scale(1.1);
+}
+
 .product1 { grid-area: box2; display: grid; }
 .product2 { grid-area: box1; display: grid; }
 .product3 { grid-area: box3; display: grid; }
@@ -241,7 +292,7 @@ header > div {
     transition: transform 0.4s ease;
 }
 
-/* ---------------- DESCRIPCIÓN PRODUCTO ---------------- */
+
 
 .prod-desc {
     color: #1F1F1F;
@@ -317,3 +368,8 @@ footer p { color: #FFFFFF; }
 footer h3 { color: #FFFFFF; }
 
 footer a:hover { color: #D72631; }
+
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}

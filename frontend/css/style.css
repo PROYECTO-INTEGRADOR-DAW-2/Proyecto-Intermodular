@@ -1,0 +1,351 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+* {
+  font-family: "Oswald", sans-serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #F5F5F5;
+}
+
+main {
+  display: grid;
+  grid-template-areas: "header" "novedades" "video" "mas-comprados" "footer";
+}
+
+#nav-section {
+  display: grid;
+  grid-template-areas: "logo nav search icons";
+  grid-template-columns: 10% 1fr 2fr 1fr;
+  height: 100px;
+  line-height: 100px;
+  position: fixed;
+  background-color: #1F1F1F;
+  box-shadow: 0 0 19px rgba(0, 0, 0, 0.3);
+  width: 100%;
+  z-index: 1;
+}
+#nav-section .logoPagina {
+  grid-area: logo;
+  height: 100px;
+  margin-left: 10px;
+}
+#nav-section #main-nav {
+  grid-area: nav;
+  list-style-type: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+#nav-section #main-nav li {
+  align-content: center;
+  text-align: center;
+  padding: 20px;
+  border: 1px solid #D72631;
+  border-radius: 10px;
+  transition: background-color 0.5s ease;
+  line-height: normal;
+}
+#nav-section #main-nav li:hover {
+  background-color: #D72631;
+}
+#nav-section #main-nav li:hover a {
+  color: #FFFFFF;
+}
+#nav-section #main-nav a {
+  color: #FFFFFF;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color 0.5s ease;
+  padding: 20px;
+}
+#nav-section input[type=text] {
+  grid-area: search;
+  justify-self: "center";
+  align-self: "center";
+  height: 25px;
+  width: 500px;
+  padding: 10px;
+  border: 2px solid transparent;
+  background-color: #FFFFFF;
+  border-radius: 50px;
+  transition: width 0.5s ease, border-color 0.5s ease;
+}
+#nav-section input[type=text]:focus {
+  outline: none;
+  border-color: #D72631;
+  width: 550px;
+}
+
+#icon-nav {
+  grid-area: icons;
+  justify-self: end;
+  margin-right: 20px;
+  align-self: center;
+  width: 30%;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+#icon-nav img {
+  width: 40px;
+  height: 40px;
+  display: block;
+}
+
+header {
+  display: grid;
+  grid-area: header;
+  height: 100vh;
+  width: 100%;
+  background-image: url("../img/fondopagina.jpg");
+  background-size: cover;
+  color: #FFFFFF;
+  position: relative;
+}
+header > div {
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+header h1 {
+  color: #1F1F1F;
+  font-size: 100px;
+  margin: 10px;
+  font-weight: 500;
+  text-shadow: 5px 2px 2px #1F1F1F;
+  color: #FFFFFF;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+header p {
+  color: #FFFFFF;
+  text-shadow: 2px 2px 2px #1F1F1F;
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in-out 0.2s forwards;
+}
+
+#novedades, #mas-comprados {
+  text-align: center;
+}
+#novedades > h2, #mas-comprados > h2 {
+  color: #1F1F1F;
+  font-size: 75px;
+  margin: 0;
+}
+
+#novedades {
+  grid-area: novedades;
+}
+
+#mas-comprados {
+  grid-area: mas-comprados;
+}
+
+#brands {
+  display: grid;
+  grid-template-areas: "box1 box2 box3 box4";
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin: 50px 10px 10px 10px;
+  transition: transform 1s ease-in-out, opacity 1.5s ease-in-out;
+}
+#brands.translate {
+  transform: translateY(-40px);
+}
+#brands .brand1 {
+  grid-area: box1;
+}
+#brands .brand2 {
+  grid-area: box2;
+}
+#brands .brand3 {
+  grid-area: box3;
+}
+#brands .brand4 {
+  grid-area: box4;
+}
+
+#products {
+  display: grid;
+  grid-template-areas: "box1 box2 box3 box4";
+  grid-template-columns: repeat(4, 1fr);
+  margin: 20px;
+  gap: 30px;
+}
+#products .product1 {
+  grid-area: box1;
+}
+#products .product2 {
+  grid-area: box2;
+}
+#products .product3 {
+  grid-area: box3;
+}
+#products .product4 {
+  grid-area: box4;
+}
+#products > article {
+  display: grid;
+}
+#products > article > div {
+  background-color: #FFFFFF;
+  border-top-left-radius: 20px;
+  border-top-right-radius: 20px;
+}
+#products > article img {
+  transition: transform 0.5s ease ease-in-out;
+}
+#products > article:hover img {
+  transform: scale(1.1);
+}
+#products > article a {
+  overflow: hidden;
+}
+
+.fotoMasNovedades {
+  object-fit: cover;
+  border-radius: 20px;
+  width: 325px;
+  height: 375px;
+  margin-bottom: 10px;
+}
+
+.fotoSimbolo, .fotoSimboloAdidas {
+  object-fit: cover;
+  border-radius: 20px;
+  width: 125px;
+  height: 125px;
+}
+
+.fotoMasComprados {
+  object-fit: cover;
+  border-radius: 0;
+  width: 260px;
+  height: 375px;
+  transition: transform 0.4s ease;
+}
+
+.video-container {
+  grid-area: video;
+  position: relative;
+}
+.video-container .video-desc {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(39, 38, 38, 0.25);
+  color: white;
+  display: grid;
+  grid-template-areas: "texto" "boton";
+  grid-template-columns: 1fr;
+  align-content: center;
+  justify-items: center;
+  gap: 20px;
+}
+.video-container .video-desc h2 {
+  grid-area: texto;
+  color: #1F1F1F;
+  font-size: 75px;
+  margin: 0;
+  color: #FFFFFF;
+}
+.video-container .video-desc a {
+  grid-area: boton;
+  margin: 0;
+  width: 20%;
+}
+
+.prod-desc {
+  color: #1F1F1F;
+  margin-top: 10px;
+  transition: height 0.5s ease;
+}
+.prod-desc p {
+  font-size: 20px;
+}
+.prod-desc p span {
+  font-size: 15px;
+  color: grey;
+  text-decoration: line-through;
+}
+.prod-desc strong {
+  font-size: 20px;
+  color: #1F1F1F;
+}
+.prod-desc .button {
+  width: 100%;
+  text-align: center;
+}
+
+.button {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  color: #FFFFFF;
+  background-color: #D72631;
+  border: 1px solid #D72631;
+  padding: 20px 0;
+  transition: background-color 0.5s ease, color 0.5s ease;
+  width: 100%;
+}
+.button:hover {
+  background-color: #1F1F1F;
+  color: #FFFFFF;
+}
+
+footer > div {
+  height: 400px;
+  background-color: #1F1F1F;
+  padding-top: 30px;
+  display: grid;
+  grid-template-areas: "recursos sobre-nosotros otros";
+  padding: 20px;
+  justify-items: center;
+  gap: 1em;
+}
+footer #recursos {
+  grid-area: recursos;
+}
+footer #about-us {
+  grid-area: sobre-nosotros;
+}
+footer #suscripcion-pedidos {
+  grid-area: otros;
+}
+footer ul {
+  list-style-type: none;
+  padding: 0;
+}
+footer p, footer h3 {
+  color: #FFFFFF;
+}
+footer a {
+  text-decoration: none;
+  color: #FFFFFF;
+}
+footer a:hover {
+  color: #D72631;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */
