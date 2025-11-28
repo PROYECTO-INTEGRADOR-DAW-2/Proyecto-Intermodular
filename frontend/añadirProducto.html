@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Añadir producto</title>
+</head>
+
+<body>
+    <section id="form-section">
+        <form>
+
+            <label for="categoria">
+                Categoria:
+                <select name="categoria" id="categoria" required>
+                    <option value="zapatillas">Zapatillas</option>
+                    <option value="camisetas">Camisetas</option>
+                    <option value="pantalones">Pantalones</option>
+                </select>
+            </label>
+
+            <label for="nombre">
+                Nombre:
+                <input type="text" name="nombre" id="nombre" required>
+            </label>
+
+            <label for="precio">
+                Precio:
+                <input type="number" step="0.1" name="precio" id="precio" required>
+            </label>
+
+            <label for="talla">
+                Talla:
+                <input type="text" name="talla" id="talla" required>
+            </label>
+
+            <label for="color">
+                Color:
+                <input type="text" name="color" id="color" required>
+            </label>
+
+            <label for="stock">
+                Stock:
+                <input type="number" name="stock" id="stock" required>
+            </label>
+
+            <label for="ajuste">
+                Ajuste:
+                <select name="ajuste" id="ajuste">
+                    <option value="holgado">Holgado</option>
+                    <option value="ajustado">Ajustado</option>
+                </select>
+            </label>
+
+            <label for="sexo">
+                Sexo:
+                <select name="sexo" id="sexo">
+                    <option value="M">Mujer</option>
+                    <option value="H">Hombre</option>
+                </select>
+            </label>
+
+            <label for="descripcion">
+                Descripcion:
+                <textarea name="descripcion" id="descripcion"></textarea>
+            </label>
+
+            <label for="altura">
+                Altura:
+                <select name="altura" id="altura">
+                    <option value="alto">Alto</option>
+                    <option value="bajo">Bajo</option>
+                    <option value="normal">Normal</option>
+                </select>
+            </label>
+
+            <label for="deporte">
+                Deporte:
+                <select name="deporte" id="deporte">
+                    <option value="trail">Trail</option>
+                </select>
+            </label>
+
+            <label for="oferta">
+                Oferta:
+                <input type="radio" name="oferta" id="oferta" value="si">
+                <input type="radio" name="oferta" id="oferta" value="no">
+            </label>
+
+            <input type="submit">
+
+        </form>
+    </section>
+
+    <script type="module" src="./js/añadirProducto.js"></script>
+
+</body>
+
+</html>

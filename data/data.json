@@ -1,10 +1,10 @@
 {
   "productos": [
     {
-      "id": "1",
+      "id": 1,
       "Categoria": "Zapatillas",
       "Nombre": "Nike Pegasus  EasyOn",
-      "Precio": 139,
+      "Precio": 139.99,
       "Talla": "L",
       "Color": "blanco",
       "Stock": 20,
@@ -52,6 +52,19 @@
       "nom": "Jorge",
       "cognoms": "asdasdasd",
       "data_registre": "2025-11-14T17:10:37+00:00"
+    },
+    {
+      "id": "5",
+      "nom_usuari": "Albert",
+      "contrasenya": "$2y$10$.Tjw/3O9DpP1exfgD9qdJ.gwO7JrflcCsy.lof1x/9OKyf65A3u5G",
+      "email": "albertdangavicol@gmail.com",
+      "nom": "Albert",
+      "cognoms": "Danga",
+      "data_registre": "2025-11-27T19:00:11+00:00"
     }
+  ],
+  "comentaris":[
+    
   ]
+
 }

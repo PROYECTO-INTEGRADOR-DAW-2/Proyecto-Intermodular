@@ -1,261 +1,267 @@
 <?php
-    require("./vendor/autoload.php");
-    use PhpOffice\PhpSpreadsheet\IOFactory;
+require("./vendor/autoload.php");
+use PhpOffice\PhpSpreadsheet\IOFactory;
 
-    define('tiposAjuste', ["ajustado", "holgado"]);
-    define('alturasValidas', ["alto", "bajo", "normal",""]);
-    define('tallasValidas', ["s","m","l","xl"]);
-    define('deportesValidos', ["trail"]);
-    define('categoriasValidas', ["zapatillas","camisetas","pantalones"]);
-    define('sexosValidos', ["h","m","hombre","mujer"]);
-    define('PRODUCTS_URL', "http://localhost:3001/productos");
-    
-    
+// ==========================================
+// 1. CONSTANTES Y CONFIGURACIÓN
+// ==========================================
+define('PRODUCTS_URL', "http://localhost:3001/productos");
+define('CONFIG_VALIDACION', [
+    'ajustes'    => ["ajustado", "holgado"],
+    'alturas'    => ["alto", "bajo", "normal", ""],
+    'tallas'     => ["s", "m", "l", "xl"],
+    'deportes'   => ["trail"],
+    'categorias' => ["zapatillas", "camisetas", "pantalones"],
+    'sexos'      => ["h", "m", "hombre", "mujer"]
+]);
 
-    function importar_datos($rutaFichero) {
+// ==========================================
+// 2. FUNCIONES AUXILIARES
+// ==========================================
 
-        $productos = [];
-        $saltarPrimeraLinea = true;
-        try {
-            $documento = IOFactory::load($rutaFichero);
+/**
+ * Obtiene todos los IDs actuales de la API para evitar duplicados.
+ */
+function obtenerIdsExistentes() {
+    $ch = curl_init(PRODUCTS_URL);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    $respuesta = curl_exec($ch);
+    curl_close($ch);
 
-            $hoja = $documento->getActiveSheet();
+    $datos = json_decode($respuesta, true);
+    $ids = [];
 
-            foreach($hoja->getRowIterator() as $fila) {
-
-                if ($saltarPrimeraLinea) {
-                    $saltarPrimeraLinea = false;  
-                    continue;                     
-                }
-
-                $celdaIterator = $fila->getCellIterator();
-                $celdaIterator->setIterateOnlyExistingCells(false);
-                $filaAsociativa = ["id" => 0, "Categoria" => "", "Nombre" => "", "Precio" => 0.0, "Talla" => "", "Color" => "", "Stock" => 0, "Ajuste" => "", "Sexo" => "" ,"Descripcion" => ""];
-                
-                foreach($celdaIterator as $celda) {
-                    switch ($celda->getColumn()) {
-                        case "A":
-                            $valor = trim($celda->getValue());
-
-                            if(is_int((int)$valor)) {
-                                $filaAsociativa["id"] = (string)$valor;
-                                break;
-                            }
-
-                            echo("El id asignado no es entero");
-                            die();
-
-                        case "B":
-                            $valor = trim((string)$celda->getValue());
-
-                            if(in_array(strtolower($valor), categoriasValidas)) {
-                                $filaAsociativa["Categoria"] = $valor;
-                                break;
-                            }
-                            echo("La categoria asignada no es valida");
-                            die();
-                            
-
-                        case "C":
-                            $filaAsociativa["Nombre"] = trim((string) $celda->getValue());
-                            break;
-
-                        case "D":
-                            $valor = (float)(trim($celda->getValue()));
-
-                            if(is_float($valor)) {
-                                $filaAsociativa["Precio"] = (float) $celda->getValue();
-                            } else {
-                                echo("Error en tipo de datos");
-                            }
-                            break;
-
-                        case "E":   // Tamaño
-                            $valor = $celda->getValue();
-
-                            // ✔ Si es número (excel puede enviarlo como int o float)
-                            if (is_int((int)$valor)) {
-                                $filaAsociativa["Talla"] = $valor;
-                                break;
-                            }
-
-                            // ✔ Si no es número → comprobar si está en tallas válidas
-                            if (in_array(strtolower((string)$valor), tallasValidas)) {
-                                $filaAsociativa["Talla"] = $valor;
-                                break;
-                            }
-
-                            // ❌ Si llega aquí → error
-                            echo "Error: la talla '$valor' no es válida";
-                            die();
-
-                        case "F": 
-                            $filaAsociativa["Color"] = trim((string)$celda->getValue());
-                            break;
-
-                        case "G":
-                            $valor = (int)$celda->getValue();
-
-                            if(is_int($valor)) {
-                                $filaAsociativa["Stock"] = $valor;
-                                break;
-                            }
-
-                            echo "Error el stock no es valido";
-                            die();
-                            
-                        case "H": 
-                            $valor = trim((string)$celda->getValue());
-
-                            if(in_array(strtolower($valor), tiposAjuste)) {
-                                $filaAsociativa["Ajuste"] = $valor;
-                                break;
-                            } 
-
-                            echo "Error en el tipo de ajuste asignado";
-                            die();
-                            
-                        case "I":
-                            $valor = trim((string)$celda->getValue());
-
-                            if (in_array(strtolower($valor), alturasValidas)) {
-                                $filaAsociativa["Altura"] = $valor;
-                                break;
-                            }
-
-                            echo("Error en la altura de la zapatilla asignada");
-                            die();
-                        
-                        case "J": 
-                            $valor = trim((string)$celda->getValue());
-
-                            if (in_array(strtolower($valor), deportesValidos)) {
-                                $filaAsociativa["Deporte"] = $valor;
-                                break;
-                            }
-
-                            echo("Error en el deporte asignado");
-                            die();
-                        
-                        case "K":
-                            $valor = trim((string)$celda->getValue());
-                            if(strtolower($valor) === "no" || strtolower($valor) === "yes") {
-                                $filaAsociativa["Oferta"] = $valor;
-                                break;
-                            }
-
-                            echo("Error en la oferta");
-                            die();
-
-                        case "L": 
-                            $valor = trim((string)$celda->getValue());
-
-                            if (in_array(strtolower($valor), sexosValidos)) {
-                                $filaAsociativa["Sexo"] = $valor;
-                                break;
-                            }
-
-                            echo("Error en el sexo asignado");
-                            die();
-                            
-                        case "M":
-                            $valor = trim((string)$celda->getValue());
-                            $filaAsociativa["Descripcion"] = $valor;
-                            break;
-                    }
-                }
-
-                $productos[] = $filaAsociativa;
-
-                
-
-                
-            }
-
-            foreach($productos as $producto) {
-                    $ch = curl_init(PRODUCTS_URL);
-
-                    curl_setopt($ch, CURLOPT_POST, 1);
-                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($producto));
-                    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-                        'Content-Type: application/json'
-                    ]);
-                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-
-                    $respuesta = curl_exec($ch);
-    
-                    if(curl_errno($ch)) {
-                        echo "Error: " . curl_error($ch);
-                    } else {
-                        echo "Producto subidos";
-                    }
-    
-                    curl_close($ch);
-                }
-
-            return $productos;
-            
-
-        } catch(Exception $err) {
-            echo ($err);
+    if (is_array($datos)) {
+        foreach ($datos as $prod) {
+            $ids[] = $prod['id'];
         }
-        
     }
+    return $ids;
+}
 
+/**
+ * Limpia el precio eliminando símbolos y normalizando decimales.
+ */
+function limpiarPrecio($valor) {
+    // Quitar todo lo que no sea número, coma o punto
+    $limpio = preg_replace('/[^\d,.]/', '', $valor);
+    // Convertir coma decimal a punto
+    return str_replace(',', '.', $limpio);
+}
 
-    if ($_SERVER['REQUEST_METHOD'] === "POST") {
-        if (is_uploaded_file($_FILES['ficheroExcel']['tmp_name'])) {
+/**
+ * Función principal de importación
+ */
+function importar_datos($rutaFichero) {
+    $productosNuevos = [];
+    $idsLocales = obtenerIdsExistentes(); // Cargar IDs de la BD
+    $saltarPrimeraLinea = true;
 
-            if ($_FILES['ficheroExcel']['error']) {
-                echo "Error en el fichero";
-                die();
+    try {
+        $documento = IOFactory::load($rutaFichero);
+        $hoja = $documento->getActiveSheet();
+
+        echo "<div class='console'>";
+        echo "<h3>Procesando archivo...</h3>";
+
+        foreach($hoja->getRowIterator() as $fila) {
+            // Saltar encabezados
+            if ($saltarPrimeraLinea) {
+                $saltarPrimeraLinea = false;
+                continue;
             }
-            
-            $fichero = $_FILES['ficheroExcel']['name'];
-            $infoFichero = pathinfo($fichero);
 
-            if ($infoFichero['extension'] === 'xlsx' || $infoFichero['extension'] === 'xls' || $infoFichero['extension'] === 'csv'){
+            $celdaIterator = $fila->getCellIterator();
+            $celdaIterator->setIterateOnlyExistingCells(false);
 
-                foreach (glob("../uploads/*") as $archivo) {
-                    if (is_file($archivo)) {
-                        unlink($archivo); 
-                    }
+            // Estructura base del producto
+            $prod = [
+                "id" => 0, "Categoria" => "", "Nombre" => "", "Precio" => 0.0,
+                "Talla" => "", "Color" => "", "Stock" => 0, "Ajuste" => "",
+                "Sexo" => "", "Descripcion" => "", "Altura" => "", "Deporte" => "", "Oferta" => ""
+            ];
+
+            // --------------------------------------------------
+            // LECTURA DE COLUMNAS
+            // --------------------------------------------------
+            foreach($celdaIterator as $celda) {
+                $val = trim((string)$celda->getValue());
+                $col = $celda->getColumn();
+
+                switch ($col) {
+                    case "A": // ID
+                        if (is_numeric($val)) $prod["id"] = (int)$val;
+                        else continue 3; // Si no hay ID válido, saltamos a la siguiente fila del Excel
+                        break;
+
+                    case "B": // Categoría
+                        if (in_array(strtolower($val), CONFIG_VALIDACION['categorias'])) $prod["Categoria"] = $val;
+                        else dieError("Categoría inválida: $val");
+                        break;
+
+                    case "C": // Nombre
+                        $prod["Nombre"] = $val;
+                        break;
+
+                    case "D": // Precio
+                        $precio = limpiarPrecio($val);
+                        if (is_numeric($precio)) $prod["Precio"] = (float)$precio;
+                        else dieError("Precio inválido: $val");
+                        break;
+
+                    case "E": // Talla
+                        if (is_numeric($val) || in_array(strtolower($val), CONFIG_VALIDACION['tallas'])) $prod["Talla"] = $val;
+                        else dieError("Talla inválida: $val");
+                        break;
+
+                    case "F": // Color
+                        $prod["Color"] = $val;
+                        break;
+
+                    case "G": // Stock
+                        if (is_numeric($val)) $prod["Stock"] = (int)$val;
+                        else dieError("Stock inválido: $val");
+                        break;
+
+                    case "H": // Ajuste
+                        if (in_array(strtolower($val), CONFIG_VALIDACION['ajustes'])) $prod["Ajuste"] = $val;
+                        else dieError("Ajuste inválido: $val");
+                        break;
+
+                    case "I": // Altura
+                        if (in_array(strtolower($val), CONFIG_VALIDACION['alturas'])) $prod["Altura"] = $val;
+                        else dieError("Altura inválida: $val");
+                        break;
+
+                    case "J": // Deporte
+                        if (in_array(strtolower($val), CONFIG_VALIDACION['deportes'])) $prod["Deporte"] = $val;
+                        else dieError("Deporte inválido: $val");
+                        break;
+
+                    case "K": // Oferta
+                        if (in_array(strtolower($val), ["no", "yes"])) $prod["Oferta"] = $val;
+                        else dieError("Oferta inválida (yes/no): $val");
+                        break;
+
+                    case "L": // Sexo
+                        if (in_array(strtolower($val), CONFIG_VALIDACION['sexos'])) $prod["Sexo"] = $val;
+                        else dieError("Sexo inválido: $val");
+                        break;
+
+                    case "M": // Descripción
+                        $prod["Descripcion"] = $val;
+                        break;
                 }
-
-                move_uploaded_file($_FILES['ficheroExcel']['tmp_name'], "../uploads/products." . $infoFichero['extension']);
-                echo "Fichero subido";
-                $productos = importar_datos("../uploads/products." . $infoFichero['extension']);
-                
-                foreach($productos as $producto) {
-                    foreach ($producto as $key => $value) {
-                        echo("<p>$key = $value</p><br>");
-                    }
-                }
-                
-            } else {
-                echo "Error en el formato, solo se permiten los formatos xls,xlsx,csv";
-                die();
             }
 
+            // --------------------------------------------------
+            // VERIFICACIÓN DE DUPLICADOS
+            // --------------------------------------------------
+            if (in_array($prod["id"], $idsLocales)) {
+                echo "<p class='warning'>⚠ El ID <strong>{$prod['id']}</strong> ya existe. Saltando...</p>";
+                continue; // Pasa a la siguiente fila del Excel
+            }
+
+            // Si es nuevo, lo añadimos a la lista de procesados local y al array final
+            $idsLocales[] = $prod["id"];
+            $productosNuevos[] = $prod;
+        }
+
+        // --------------------------------------------------
+        // SUBIDA A LA API
+        // --------------------------------------------------
+        if (empty($productosNuevos)) {
+            echo "<p class='info'>No hay productos nuevos para importar.</p>";
         } else {
-            echo "Error en la subida del fichero";
-            die();
+            foreach($productosNuevos as $producto) {
+                enviarProductoAPI($producto);
+            }
+        }
+        echo "</div>"; // Fin consola
+
+    } catch(Exception $err) {
+        dieError("Excepción crítica: " . $err->getMessage());
+    }
+}
+
+function enviarProductoAPI($producto) {
+    $ch = curl_init(PRODUCTS_URL);
+    $jsonData = json_encode($producto);
+    
+    curl_setopt($ch, CURLOPT_POST, 1);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $jsonData);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json', 'Content-Length: ' . strlen($jsonData)]);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    
+    curl_exec($ch);
+    
+    if(curl_errno($ch)) {
+        echo "<p class='error'>❌ Error CURL ID {$producto['id']}: " . curl_error($ch) . "</p>";
+    } else {
+        echo "<p class='success'>✅ Producto ID <strong>{$producto['id']}</strong> ({$producto['Nombre']}) importado.</p>";
+    }
+    curl_close($ch);
+}
+
+function dieError($msg) {
+    die("<p class='error'>⛔ $msg</p>");
+}
+
+// ==========================================
+// 3. LÓGICA DEL FORMULARIO (POST)
+// ==========================================
+if ($_SERVER['REQUEST_METHOD'] === "POST") {
+    if (isset($_FILES['ficheroExcel']) && is_uploaded_file($_FILES['ficheroExcel']['tmp_name'])) {
+        
+        $ext = strtolower(pathinfo($_FILES['ficheroExcel']['name'], PATHINFO_EXTENSION));
+        $permitidos = ['xlsx', 'xls', 'csv'];
+
+        if (in_array($ext, $permitidos)){
+            // Limpiar carpeta uploads
+            array_map('unlink', glob("../uploads/*"));
+            if (!is_dir("../uploads")) mkdir("../uploads", 0777, true);
+            
+            $ruta = "../uploads/products." . $ext;
+            
+            if(move_uploaded_file($_FILES['ficheroExcel']['tmp_name'], $ruta)) {
+                importar_datos($ruta);
+            } else { 
+                dieError("Error al mover el fichero al servidor."); 
+            }
+        } else { 
+            dieError("Formato inválido. Solo se admite: " . implode(", ", $permitidos)); 
         }
     }
+}
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Subir datos</title>
+    <title>Importador de Productos</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; }
+        .console { background: #f4f4f4; padding: 15px; border-radius: 5px; border: 1px solid #ddd; max-height: 400px; overflow-y: auto; margin-bottom: 20px;}
+        .success { color: green; margin: 5px 0; }
+        .error { color: red; font-weight: bold; margin: 5px 0; }
+        .warning { color: orange; margin: 5px 0; }
+        .info { color: #555; font-style: italic; }
+        form { background: #eef; padding: 20px; border-radius: 8px; }
+        input[type="submit"] { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
+        input[type="submit"]:hover { background: #0056b3; }
+    </style>
 </head>
 <body>
+    <h1>Importar Productos (Excel)</h1>
+    
     <section>
-        <form action="importar_excel.php" method="post" enctype="multipart/form-data">
-            <input type="file" name="ficheroExcel">
-            <input type="submit" name="enviarDatos">
+        <form action="" method="post" enctype="multipart/form-data">
+            <label for="file"><strong>Selecciona el archivo Excel:</strong></label><br><br>
+            <input type="file" name="ficheroExcel" id="file" required accept=".csv, .xlsx, .xls">
+            <br><br>
+            <input type="submit" value="🚀 Subir e Importar">
         </form>
     </section>
 </body>
