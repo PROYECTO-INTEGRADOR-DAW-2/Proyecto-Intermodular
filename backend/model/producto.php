@@ -16,19 +16,19 @@ class Product {
     $altura, 
     $deporte, 
     $oferta)  {
-        $this->id = id;
-        $this->categoria = categoria;
-        $this->nombre = nombre;
-        $this->precio = precio;
-        $this->talla = talla;
-        $this->color = color;
-        $this->stock = stock;
-        $this->ajuste = ajuste;
-        $this->sexo = sexo;
-        $this->descripcion = descripcion;
-        $this->altura = altura;
-        $this->deporte = deporte;
-        $this->oferta = oferta;
+        $this->id = $id;
+        $this->categoria = $categoria;
+        $this->nombre = $nombre;
+        $this->precio = $precio;
+        $this->talla = $talla;
+        $this->color = $color;
+        $this->stock = $stock;
+        $this->ajuste = $ajuste;
+        $this->sexo = $sexo;
+        $this->descripcion = $descripcion;
+        $this->altura = $altura;
+        $this->deporte = $deporte;
+        $this->oferta = $oferta;
     }
 
 
