@@ -10,21 +10,44 @@ class Products {
 
     public function addProduct(array $product) {
 
-        $peticion = curl_init(URL);
+        // Obtener todos los productos
+        $curl = curl_init(URL);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($curl);
 
-        curl_setopt($peticion, CURLOPT_POST, true);
-        curl_setopt($peticion, CURLOPT_POSTFIELDS, http_build_query($product));
-        curl_setopt($peticion, CURLOPT_RETURNTRANSFER, true);
+        if(!curl_errno($curl)) {
+            $productos = json_decode($response, true);
 
-        $result = curl_exec($peticion);
+            // Obtener último y sumar ID
+            $ultimo = end($productos);
+            $product["id"] = strval($ultimo["id"] + 1);
 
-        if (curl_errno($peticion)) {
-            echo "Error: " . curl_error($peticion);
+        } else {
+            echo "Error GET: ".curl_error($curl);
+            return;
         }
 
-        curl_close($peticion);
+        curl_close($curl);
 
-        $this->products[] = new Product($product['id'],
+
+        // POST con el nuevo producto
+        $post = curl_init(URL);
+        curl_setopt($post, CURLOPT_POST, true);
+        curl_setopt($post, CURLOPT_POSTFIELDS, http_build_query($product));
+        curl_setopt($post, CURLOPT_RETURNTRANSFER, true);
+
+        curl_exec($post);
+
+        if(curl_errno($post)) {
+            echo "Error POST: ".curl_error($post);
+        }
+
+        curl_close($post);
+
+
+        // Guardar en local
+        $this->products[] = new Product(
+            $product['id'],
             $product['categoria'],
             $product['nombre'],
             $product['precio'],
@@ -38,12 +61,29 @@ class Products {
             $product['deporte'],
             $product['oferta']
         );
-        
     }
+
 
     public function getProducts(){
         $peticion = curl_init();
         curl_setopt($peticion, CURLOPT_URL, URL);
+        curl_setopt($peticion, CURLOPT_RETURNTRANSFER, true);
+        $response = curl_exec($peticion);
+
+        if (curl_errno($peticion)) {
+            echo "Error: " . curl_error($peticion);
+        }
+
+        curl_close($peticion);
+
+        return json_decode($response);
+
+    }
+
+    public function getProduct($idProduct){
+        $url = "http://localhost:3001/productos/$idProduct";
+
+        $peticion = curl_init($url);
         curl_setopt($peticion, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($peticion);
 

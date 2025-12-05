@@ -11,11 +11,19 @@ class Controller {
     }
 
     public function getProducts() {
-        $products = $this->products->getProducts();
-        echo json_encode($products);
+        
+        return $this->products->getProducts();
+        
+    }
+
+    public function getProduct($idProduct) {
+        
+        return $this->products->getProduct($idProduct);
+        
     }
 
     public function addProduct($product) {
+
         $result = $this->products->addProduct($product);
         echo json_encode(["status" => "success", "message" => "Product added", "data" => $result]);
     }

@@ -1,9 +1,24 @@
 {
   "productos": [
     {
-      "id": 1,
+      "id": "1",
       "Categoria": "Zapatillas",
       "Nombre": "Nike Pegasus  EasyOn",
+      "Precio": 139.99,
+      "Talla": "L",
+      "Color": "blanco",
+      "Stock": 20,
+      "Ajuste": "Ajustado",
+      "Sexo": "Hombre",
+      "Descripcion": "Esta es una zapatilla muy chula",
+      "Altura": "Normal",
+      "Deporte": "Trail",
+      "Oferta": "NO"
+    },
+    {
+      "id": "2",
+      "Categoria": "Zapatillas",
+      "Nombre": "Nike Pegasus",
       "Precio": 139.99,
       "Talla": "L",
       "Color": "blanco",
@@ -19,52 +34,21 @@
   "usuaris": [
     {
       "id": "1",
-      "nom_usuari": "Alvaro",
-      "contrasenya": "$2y$10$Uqsyavjjcs92JJPfTfotsO3B/A.8yiZeWe7.qWmGR/Y1XLtdeZCTi",
-      "email": "albertdangavicol@hola.com",
-      "nom": "ALBERT",
-      "cognoms": "Vidal",
-      "data_registre": "2025-11-14T14:44:56+00:00"
-    },
-    {
-      "id": "2",
-      "nom_usuari": "batoi",
-      "contrasenya": "$2y$10$L2mQRY./OrE5aoaGk.iDyum43Dbn4u2iGDMuWnxvGco5..I/WcoQi",
-      "email": "albertdangavicol@gmail.com",
-      "nom": "Albert",
-      "cognoms": "Vidal",
-      "data_registre": "2025-11-14T14:46:06+00:00"
-    },
-    {
-      "id": "3",
-      "nom_usuari": "Kevin",
-      "contrasenya": "$2y$10$MVwEPqr1mylforVr4KW85./.EYeHnf30SuCmKIpI7hsg4DHgE.d5e",
-      "email": "kevin@gmail.com",
-      "nom": "Kevin",
-      "cognoms": "Vidal",
-      "data_registre": "2025-11-14T16:20:05+00:00"
-    },
-    {
-      "id": "4",
-      "nom_usuari": "Jorge",
-      "contrasenya": "$2y$10$.ZoOL/f/7EiU6xgDXSIuGu49bnk1fIiqKIJ9/t51wXVTnqXFqVJga",
-      "email": "albertdangavicol@gmail.com",
-      "nom": "Jorge",
-      "cognoms": "asdasdasd",
-      "data_registre": "2025-11-14T17:10:37+00:00"
-    },
-    {
-      "id": "5",
       "nom_usuari": "Albert",
-      "contrasenya": "$2y$10$.Tjw/3O9DpP1exfgD9qdJ.gwO7JrflcCsy.lof1x/9OKyf65A3u5G",
+      "contrasenya": "$2y$10$fJIMf4xhwXN.A0eI50mGguycYzt3DAlghUPRFVPVfTU7HHma90hVm",
       "email": "albertdangavicol@gmail.com",
       "nom": "Albert",
       "cognoms": "Danga",
-      "data_registre": "2025-11-27T19:00:11+00:00"
+      "data_registre": "2025-12-05T16:07:57+00:00"
     }
   ],
-  "comentaris":[
-    
+  "comentaris": [
+    {
+      "id": "1",
+      "id_producte": "1",
+      "id_usuari": "1",
+      "comentari": "Muy buena zapatilla",
+      "data": "2025-11-14T14:44:56+00:00"
+    }
   ]
-
 }

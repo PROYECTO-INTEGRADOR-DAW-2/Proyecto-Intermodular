@@ -5,11 +5,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Añadir producto</title>
+    <link rel="stylesheet" href="./css/añadirProducto.css">
 </head>
 
 <body>
+    <nav id="nav-section">
+        <img src="./img/logo.png" alt="imagen-logo" class="logoPagina">
+        <ul id="main-nav">
+            <li><a href="">Hombre</a></li>
+            <li><a href="">Mujer</a></li>
+            <li><a href="">Niños</a></li>
+        </ul>
+
+        <input type="text" placeholder="Buscar">
+
+        <ul id="icon-nav">
+            <li><a href="../backend/auth/login.php"><img src="img/user.png" alt=""></a></li>
+            <li><a href="#"><img src="img/carrito.png" alt=""></a></li>
+        </ul>
+    </nav>
     <section id="form-section">
-        <form action="post">
+        <form method="post">
 
             <label for="categoria">
                 Categoria:
@@ -82,10 +98,12 @@
                 </select>
             </label>
 
+            Oferta:
             <label for="oferta">
-                Oferta:
-                <input type="radio" name="oferta" id="oferta" value="si">
-                <input type="radio" name="oferta" id="oferta" value="no">
+                Si
+                <input type="radio" name="oferta" value="true">
+                No
+                <input type="radio" name="oferta" value="false">
             </label>
 
             <input type="submit">
@@ -93,7 +111,7 @@
         </form>
     </section>
 
-    <script type="module" src="./js/añadirProducto.js"></script>
+    <script type="module" src="./js/app.js"></script>
 
 </body>
 

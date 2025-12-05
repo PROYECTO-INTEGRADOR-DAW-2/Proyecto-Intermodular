@@ -124,47 +124,59 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Registre Usuari</title>
+    <link rel="stylesheet" href="../../frontend/css/auth.css">
 </head>
 <body>
+    <nav id="nav-section">
+         <img src="../../frontend/img/logo.png" alt="imagen-logo" class="logoPagina">
+        <ul id="main-nav">
+            <li><a href="">Hombre</a></li>
+            <li><a href="">Mujer</a></li>
+            <li><a href="">Niños</a></li>
+        </ul>
 
-    <h2>Registre Usuari </h2>
+        <input type="text" placeholder="Buscar">
 
-    <?php
-    // Sección para mostrar mensajes de error al usuario
-    if (!empty($error)) {
-        echo "<p >" . htmlspecialchars($error) . "</p>";
-    }
-    // Sección para mostrar mensajes de éxito al usuario
-    if (!empty($EnviadoCorrecto)) {
-        echo "<p>" . htmlspecialchars($EnviadoCorrecto) . "</p>";
-    }
-    ?>
+        <ul id="icon-nav">
+            <li><a href="login.php"><img src="../../frontend/img/user.png" alt=""></a></li>
+            <li><a href="#"><img src="../../frontend/img/carrito.png" alt=""></a></li>
+        </ul>
+    </nav>
 
-    <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-        <div>
-            <label for="nom_usuari">Nom dUsuari:</label>
+    <section>
+        <h2>Registre Usuari</h2>
+
+        <?php
+        // Sección para mostrar mensajes de error al usuario
+        if (!empty($error)) {
+            echo "<p style='color:red;'>" . htmlspecialchars($error) . "</p>";
+        }
+        // Sección para mostrar mensajes de éxito al usuario
+        if (!empty($EnviadoCorrecto)) {
+            echo "<p style='color:green;'>" . htmlspecialchars($EnviadoCorrecto) . "</p>";
+        }
+        ?>
+
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+            <label for="nom_usuari">Nom d'Usuari:</label>
             <input type="text" id="nom_usuari" name="nom_usuari" required>
-        </div>
-        <div>
+
             <label for="email">Email:</label>
             <input type="email" id="email" name="email" required>
-        </div>
-        <div>
+
             <label for="contrasenya">Contrasenya:</label>
             <input type="password" id="contrasenya" name="contrasenya" required>
-        </div>
-        <div>
+
             <label for="nom">Nom:</label>
             <input type="text" id="nom" name="nom" required>
-        </div>
-        <div>
+
             <label for="cognoms">Cognoms:</label>
             <input type="text" id="cognoms" name="cognoms" required>
-        </div>
-        <div>
-            <button type="submit">Registrar</button>
-        </div>
-    </form>
+
+            <input type="submit" value="Registrar">
+        </form>
+        <a href="login.php" class="auth-link">¿Ya tienes cuenta? Inicia sesión</a>
+    </section>
 
 </body>
 </html>

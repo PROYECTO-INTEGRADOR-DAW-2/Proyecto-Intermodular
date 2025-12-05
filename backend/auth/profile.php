@@ -97,72 +97,69 @@ if ($response_get === false) {
 ?>
 <!DOCTYPE html>
 <html lang="ca">
-    
 <head>
     <meta charset="UTF-8">
     <title>Perfil d'Usuari</title>
-    <link rel="stylesheet" href="styleProfile.css">
+    <link rel="stylesheet" href="../../frontend/css/auth.css">
 </head>
 <body>
+    <nav id="nav-section">
+         <img src="../../frontend/img/logo.png" alt="imagen-logo" class="logoPagina">
+        <ul id="main-nav">
+            <li><a href="">Hombre</a></li>
+            <li><a href="">Mujer</a></li>
+            <li><a href="">Niños</a></li>
+        </ul>
 
-    <a href="logout.php" style="float: right;">Tancar Sessió</a>
+        <input type="text" placeholder="Buscar">
 
-    <h2>Perfil d'Usuari</h2>
+        <ul id="icon-nav">
+            <li><a href="login.php"><img src="../../frontend/img/user.png" alt=""></a></li>
+            <li><a href="#"><img src="../../frontend/img/carrito.png" alt=""></a></li>
+        </ul>
+    </nav>
 
-    <?php
-    if (!empty($error)) {
-        echo "<p style='color:red;'>" . htmlspecialchars($error) . "</p>";
-    }
-    if (!empty($success)) {
-        echo "<p style='color:green;'>" . htmlspecialchars($success) . "</p>";
-    }
-    ?>
+    <section>
+        <a href="logout.php" style="float: right; color: #D72631; text-decoration: none;">Tancar Sessió</a>
+        <h2>Perfil d'Usuari</h2>
 
-    <?php if ($user_data):  ?>
-    
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            
-            <div>
-                <label>Nom d'Usuari (no editable):</label>
-                <input type_text" 
-                       value="<?php echo htmlspecialchars($user_data['nom_usuari']); ?>" 
-                       disabled>
-            </div>
-            <div>
-                <label>Data de Registre (no editable):</label>
-                <input type="text" 
-                       value="<?php echo htmlspecialchars($user_data['data_registre']); ?>" 
-                       disabled>
-            </div>
+        <?php
+        if (!empty($error)) {
+            echo "<p style='color:red;'>" . htmlspecialchars($error) . "</p>";
+        }
+        if (!empty($success)) {
+            echo "<p style='color:green;'>" . htmlspecialchars($success) . "</p>";
+        }
+        ?>
 
-            <hr>
-            
-            <div>
-                <label for="nom">Nom:</label>
-                <input type="text" id="nom" name="nom" 
-                       value="<?php echo htmlspecialchars($user_data['nom']); ?>" 
-                       required>
-            </div>
-            <div>
-                <label for="cognoms">Cognoms:</label>
-                <input type="text" id="cognoms" name="cognoms" 
-                       value="<?php echo htmlspecialchars($user_data['cognoms']); ?>" 
-                       required>
-            </div>
-            <div>
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" 
-                       value="<?php echo htmlspecialchars($user_data['email']); ?>" 
-                       required>
-            </div>
-            <div>
-                <button type="submit">Guardar Canvis</button>
-            </div>
-        </form>
+        <?php if ($user_data):  ?>
         
-    <?php else: ?>
-        <p>No s'ha pogut carregar la informació de l'usuari.</p>
-    <?php endif; ?>
+            <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+                
+                <label>Nom d'Usuari (no editable):</label>
+                <input type="text" value="<?php echo htmlspecialchars($user_data['nom_usuari']); ?>" disabled>
+
+                <label>Data de Registre (no editable):</label>
+                <input type="text" value="<?php echo htmlspecialchars($user_data['data_registre']); ?>" disabled>
+
+                <hr style="width: 100%; border: 1px solid #E0E0E0; margin: 20px 0;">
+                
+                <label for="nom">Nom:</label>
+                <input type="text" id="nom" name="nom" value="<?php echo htmlspecialchars($user_data['nom']); ?>" required>
+
+                <label for="cognoms">Cognoms:</label>
+                <input type="text" id="cognoms" name="cognoms" value="<?php echo htmlspecialchars($user_data['cognoms']); ?>" required>
+
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" value="<?php echo htmlspecialchars($user_data['email']); ?>" required>
+
+                <input type="submit" value="Guardar Canvis">
+            </form>
+            
+        <?php else: ?>
+            <p>No s'ha pogut carregar la informació de l'usuari.</p>
+        <?php endif; ?>
+    </section>
 
 </body>
 </html>

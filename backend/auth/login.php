@@ -62,36 +62,46 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <head>
     <meta charset="UTF-8">
     <title>Inici de Sessió</title>
-    
-    <link rel="stylesheet" href="styleLogin.css">
-    
+    <link rel="stylesheet" href="../../frontend/css/auth.css">
 </head>
 <body>
+    <nav id="nav-section">
+         <img src="../../frontend/img/logo.png" alt="imagen-logo" class="logoPagina">
+        <ul id="main-nav">
+            <li><a href="">Hombre</a></li>
+            <li><a href="">Mujer</a></li>
+            <li><a href="">Niños</a></li>
+        </ul>
 
-    <div class="container">
+        <input type="text" placeholder="Buscar">
+
+        <ul id="icon-nav">
+            <li><a href="login.php"><img src="../../frontend/img/user.png" alt=""></a></li>
+            <li><a href="#"><img src="../../frontend/img/carrito.png" alt=""></a></li>
+        </ul>
+    </nav>
+
+    <section>
         <h2>Inici de Sessió</h2>
 
         <?php
         // Secció per mostrar missatges (ara amb classes CSS)
         if (!empty($error)) {
-            echo "<p class='error'>" . htmlspecialchars($error) . "</p>";
+            echo "<p class='error' style='color:red;'>" . htmlspecialchars($error) . "</p>";
         }
         ?>
 
         <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
-            <div>
-                <label for="nom_usuari">Nom d'Usuari:</label>
-                <input type="text" id="nom_usuari" name="nom_usuari" required>
-            </div>
-            <div>
-                <label for="contrasenya">Contrasenya:</label>
-                <input type="password" id="contrasenya" name="contrasenya" required>
-            </div>
-            <div>
-                <button type="submit">Entrar</button>
-            </div>
+            <label for="nom_usuari">Nom d'Usuari:</label>
+            <input type="text" id="nom_usuari" name="nom_usuari" required>
+
+            <label for="contrasenya">Contrasenya:</label>
+            <input type="password" id="contrasenya" name="contrasenya" required>
+
+            <input type="submit" value="Entrar">
         </form>
-    </div>
+        <a href="register.php" class="auth-link">¿No tienes cuenta? Regístrate aquí</a>
+    </section>
 
 </body>
 </html>
