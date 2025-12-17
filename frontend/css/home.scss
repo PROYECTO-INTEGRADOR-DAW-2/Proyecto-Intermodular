@@ -17,15 +17,17 @@ $transition-std: $anim-duration ease;
 @mixin heading-style($size) {
     color: $dark-color;
     font-size: $size;
-    
-    @if $size > 80px {
+
+    @if $size >80px {
         // Títulos grandes (Header)
         margin: 10px;
         font-weight: 500;
         text-shadow: 5px 2px 2px $dark-color;
-    } @else {
+    }
+
+    @else {
         // Títulos de sección
-        margin: 0;
+        margin-top: 50px; // Changed from 0 to match style.css update
     }
 }
 
@@ -47,79 +49,57 @@ $transition-std: $anim-duration ease;
     font-style: normal;
 }
 
-html, body {
+html,
+body {
     margin: 0;
     padding: 0;
 }
 
 body {
     background-color: $light-bg;
+    padding-top: 100px;
 }
 
-main {
-    display: grid;
-    grid-template-areas: 
-    "header"
-    "novedades"
-    "video"
-    "mas-comprados"
-    "footer";
-}
+// Grid removed from main
 
 // --- 4. Navegación ---
 #nav-section {
-    display: grid;
-    grid-template-areas: "logo nav search icons";
-    grid-template-columns: 10% 1fr 2fr 1fr;
-    height: 100px;
-    line-height: 100px;
+    // Grid removed
+    min-height: 100px;
     position: fixed;
     background-color: $dark-color;
-    box-shadow: 0 0 19px rgba(0,0,0,0.3);
+    box-shadow: 0 0 19px rgba(0, 0, 0, 0.3);
     width: 100%;
-    z-index: 1;
+    z-index: 1000;
 
     .logoPagina {
-        grid-area: logo; 
-        height: 100px;
+        // grid-area removed
+        height: 80px; // Adjusted height
+        width: auto;
         margin-left: 10px;
     }
 
     // Nesting para navegación principal
     #main-nav {
-        grid-area: nav; 
-        list-style-type: none;
-        padding: 0;
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
 
-        li {
-            align-content: center;
-            text-align: center;
-            padding: 20px;
-            border: 1px solid $primary-color;
-            border-radius: 10px;
-            transition: background-color $transition-std;
-            line-height: normal;
+        // Grid removed
+        .nav-link {
+            color: $white;
+            transition: color $transition-std;
+            padding: 10px 15px;
+            font-size: 1.1rem;
 
             &:hover {
-                background-color: $primary-color;
-                a { color: $white; }
+                color: $primary-color;
             }
-        }
-
-        a {
-            color: $white;
-            text-decoration: none;
-            cursor: pointer;
-            transition: color $transition-std;
-            padding: 20px;
         }
     }
 
     input[type="text"] {
-        grid-area: search;
+        // Grid area removed
+        // Styles might be unused if we replaced with Bootstrap form, but keeping solely for reference or if they use a custom class still.
+        // Actually, in home.html I used class="form-control" but kept the id/selectors? No, I replaced strictly.
+        // I should probably remove this block if I'm confident, but keeping it as legacy or if they revert HTML partials.
         @include align-self("center");
         height: 25px;
         width: 500px;
@@ -138,43 +118,30 @@ main {
 }
 
 #icon-nav {
-    grid-area: icons;
-    justify-self: end;
-    margin-right: 20px;
-    align-self: center;
-    width: 30%;
-    list-style-type: none;
-    margin: 0; 
-    padding: 0; 
-    display: grid;
-    grid-template-columns: 50% 50%;
 
+    // Grid removed
     img {
-        width: 40px;
-        height: 40px; 
+        width: 30px;
+        height: 30px;
         display: block;
+        filter: invert(1);
     }
 }
 
 // --- 5. Header ---
 header {
-    display: grid;
-    grid-area: header;
-    height: 100vh; 
+    // Grid removed
+    height: 100vh;
     width: 100%;
     background-image: url('../img/fondopagina.jpg');
     background-size: cover;
+    background-position: center;
     color: $white;
     position: relative;
-
-    > div {
-        text-align: center;
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 100%;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 
     h1 {
         @include heading-style(100px); // Mixin
@@ -189,122 +156,101 @@ header {
         text-shadow: 2px 2px 2px $dark-color;
         opacity: 0;
         animation: fadeIn $anim-duration ease-in-out 0.2s forwards;
+        font-size: 1.5rem;
     }
 }
 
 // --- 6. Títulos de Secciones ---
-#novedades, #mas-comprados {
-    text-align: center;
-    > h2 {
-       @include heading-style(75px);
+#novedades,
+#mas-comprados {
+
+    // text-align handled by bootstrap
+    >h2 {
+        @include heading-style(75px);
     }
 }
 
-#novedades { grid-area: novedades; }
-#mas-comprados { grid-area: mas-comprados; }
+// Grid areas definitions removed
 
 // --- 7. Grids y Bucles ---
 #brands {
-    display: grid;
-    grid-template-areas: "box1 box2 box3 box4";
-    grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
-    // Fix colapso: 50px arriba para dejar espacio al translate -40px
-    margin: 50px 10px 10px 10px;
+    // Grid removed
+    margin: 0 10px;
     transition: transform 1.0s ease-in-out, opacity 1.5s ease-in-out;
 
     &.translate {
         transform: translateY(-40px);
     }
 
-    // Bucle @for para brands
-    @for $i from 1 through 4 {
-        .brand#{$i} { grid-area: box#{$i}; }
-    }
+    // Loops removed as we use bootstrap classes
 }
 
 #products {
-    display: grid;
-    grid-template-areas: "box1 box2 box3 box4";
-    grid-template-columns: repeat(4, 1fr);
-    margin: 20px;
-    gap: 30px;
+    // Grid removed
 
-    // Bucle @for para products
-    @for $i from 1 through 4 {
-        .product#{$i} { grid-area: box#{$i}; }
-    }
+    // Loops removed
 
-    > article {
-        display: grid;
-        
-        > div {
-            background-color: $white;
-            border-top-left-radius: 20px;
-            border-top-right-radius: 20px;
+    .card {
+        transition: transform 0.3s ease;
+        background-color: transparent; // or white, assuming bootstrap card has bg. We want transparent to match design? Or white card?
+
+        // Original designs had white bg on > div inside article. Bootstrap card has white bg by default.
+        &:hover {
+            transform: translateY(-5px);
         }
-
-        img {
-            transition: transform $transition-std ease-in-out;
-        }
-
-        &:hover img {
-            transform: scale(1.1);
-        }
-        
-        a { overflow: hidden; }
     }
 }
 
 // --- 8. Imágenes ---
 .fotoMasNovedades {
     @include img-cover(20px);
-    width: 325px;
-    height: 375px;
+    width: 100%;
+    height: auto;
     margin-bottom: 10px;
 }
 
-.fotoSimbolo, .fotoSimboloAdidas {
+.fotoSimbolo,
+.fotoSimboloAdidas {
     @include img-cover(20px);
-    width: 125px;
-    height: 125px;
+    width: 60px;
+    height: 60px;
 }
 
 .fotoMasComprados {
     @include img-cover(0);
-    width: 260px;
-    height: 375px;
+    width: 100%;
+    height: auto;
+    max-height: 300px;
     transition: transform 0.4s ease;
 }
 
 // --- 9. Video ---
 .video-container {
-    grid-area: video;
-    position: relative; 
+    position: relative;
+    overflow: hidden;
+    border-radius: 20px;
 
     .video-desc {
         position: absolute;
         inset: 0;
-        background-color: rgba(39, 38, 38, 0.25);
+        background-color: rgba(39, 38, 38, 0.4);
         color: white;
-        display: grid;
-        grid-template-areas: "texto" "boton";
-        grid-template-columns: 1fr;
-        align-content: center;
-        justify-items: center;
-        gap: 20px;   
-        
+        text-align: center;
+        opacity: 1;
+        /* Changed to visible */
+        transition: opacity 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
         h2 {
-            grid-area: texto;
-            @include heading-style(75px);
+            font-size: 4rem;
+            margin-bottom: 20px;
             color: $white;
         }
 
-        a {
-            grid-area: boton;
-            margin: 0;
-            width: 20%; 
-        }
+        // a styling handled by .button
     }
 }
 
@@ -316,10 +262,11 @@ header {
 
     p {
         font-size: 20px;
+
         span {
             font-size: 15px;
-            color: grey; 
-            text-decoration: line-through; 
+            color: grey;
+            text-decoration: line-through;
         }
     }
 
@@ -353,34 +300,74 @@ header {
 
 // --- 11. Footer ---
 footer {
-    > div {
-        height: 400px;
-        background-color: $dark-color;
-        padding-top: 30px;
-        display: grid;
-        grid-template-areas: "recursos sobre-nosotros otros";
-        padding: 20px; 
-        justify-items: center;
-        gap: 1em;
+    // Grid removed
+    height: 400px;
+    background-color: $dark-color;
+    padding-top: 30px;
+    padding: 20px;
+
+    ul {
+        list-style-type: none;
+        padding: 0;
     }
 
-    #recursos { grid-area: recursos; }
-    #about-us { grid-area: sobre-nosotros; }
-    #suscripcion-pedidos { grid-area: otros; }
-
-    ul { list-style-type: none; padding: 0; }
-    
-    p, h3 { color: $white; }
+    p,
+    h3 {
+        color: $white;
+    }
 
     a {
-        text-decoration: none; 
+        text-decoration: none;
         color: $white;
-        &:hover { color: $primary-color; }
+
+        &:hover {
+            color: $primary-color;
+        }
     }
 }
 
 // --- 12. Keyframes ---
 @keyframes fadeIn {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+// --- 13. Media Queries ---
+@media (max-width: 992px) {
+    header h1 {
+        font-size: 70px;
+    }
+
+    #novedades>h2,
+    #mas-comprados>h2 {
+        font-size: 50px;
+    }
+
+    .video-container .video-desc h2 {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 576px) {
+    header h1 {
+        font-size: 40px;
+    }
+
+    header p {
+        font-size: 1rem;
+    }
+
+    #novedades>h2,
+    #mas-comprados>h2 {
+        font-size: 40px;
+    }
+
+    .video-container .video-desc h2 {
+        font-size: 2rem;
+    }
 }
