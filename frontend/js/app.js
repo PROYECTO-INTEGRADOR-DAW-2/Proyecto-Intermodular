@@ -6,20 +6,20 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (form) {
         form.addEventListener('submit', async (e) => {
             e.preventDefault();
-            const categoria   = document.getElementById("categoria").value;
-            const nombre      = document.getElementById("nombre").value;
-            const precio      = document.getElementById("precio").value;
-            const talla       = document.getElementById("talla").value;
-            const color       = document.getElementById("color").value;
-            const stock       = document.getElementById("stock").value;
-            const ajuste      = document.getElementById("ajuste").value;
-            const sexo        = document.getElementById("sexo").value;
+            const categoria = document.getElementById("categoria").value;
+            const nombre = document.getElementById("nombre").value;
+            const precio = document.getElementById("precio").value;
+            const talla = document.getElementById("talla").value;
+            const color = document.getElementById("color").value;
+            const stock = document.getElementById("stock").value;
+            const ajuste = document.getElementById("ajuste").value;
+            const sexo = document.getElementById("sexo").value;
             const descripcion = document.getElementById("descripcion").value;
-            const altura      = document.getElementById("altura").value;
-            const deporte     = document.getElementById("deporte").value;
+            const altura = document.getElementById("altura").value;
+            const deporte = document.getElementById("deporte").value;
             const oferta = document.querySelector('input[name="oferta"]:checked')?.value;
 
-            let product = {categoria, nombre, precio,talla,color,stock,ajuste,sexo,descripcion,altura,deporte,oferta};
+            let product = { categoria, nombre, precio, talla, color, stock, ajuste, sexo, descripcion, altura, deporte, oferta };
 
             try {
                 const result = await API.addDBProduct(product);
@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
     }
 
-    
+
 
     await getProducts();
 
@@ -77,7 +77,7 @@ async function getProduct(idProduct) {
         const productContainer = document.getElementById("product-container")
 
         if (product) {
-            
+
             let div = document.createElement("div");
 
             div.innerHTML = `
@@ -85,7 +85,7 @@ async function getProduct(idProduct) {
                 <p>${product.Precio}<p>
             `
             productContainer.append(div)
-            
+
         } else {
             console.error('Error from server:', product);
             alert('Hubo un error al añadir el producto. Revisa la consola para más detalles.');

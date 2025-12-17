@@ -1,11 +1,13 @@
 @import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+
 * {
   font-family: "Oswald", sans-serif;
   font-optical-sizing: auto;
   font-style: normal;
 }
 
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
 }
@@ -31,11 +33,13 @@ main {
   width: 100%;
   z-index: 1;
 }
+
 #nav-section .logoPagina {
   grid-area: logo;
   height: 100px;
   margin-left: 10px;
 }
+
 #nav-section #main-nav {
   grid-area: nav;
   list-style-type: none;
@@ -44,6 +48,7 @@ main {
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
 }
+
 #nav-section #main-nav li {
   align-content: center;
   text-align: center;
@@ -53,12 +58,15 @@ main {
   transition: background-color 0.5s ease;
   line-height: normal;
 }
+
 #nav-section #main-nav li:hover {
   background-color: #D72631;
 }
+
 #nav-section #main-nav li:hover a {
   color: #FFFFFF;
 }
+
 #nav-section #main-nav a {
   color: #FFFFFF;
   text-decoration: none;
@@ -66,6 +74,7 @@ main {
   transition: color 0.5s ease;
   padding: 20px;
 }
+
 #nav-section input[type=text] {
   grid-area: search;
   justify-self: "center";
@@ -78,6 +87,7 @@ main {
   border-radius: 50px;
   transition: width 0.5s ease, border-color 0.5s ease;
 }
+
 #nav-section input[type=text]:focus {
   outline: none;
   border-color: #D72631;
@@ -96,6 +106,7 @@ main {
   display: grid;
   grid-template-columns: 50% 50%;
 }
+
 #icon-nav img {
   width: 40px;
   height: 40px;
@@ -112,7 +123,8 @@ header {
   color: #FFFFFF;
   position: relative;
 }
-header > div {
+
+header>div {
   text-align: center;
   position: absolute;
   top: 50%;
@@ -120,6 +132,7 @@ header > div {
   transform: translate(-50%, -50%);
   width: 100%;
 }
+
 header h1 {
   color: #1F1F1F;
   font-size: 100px;
@@ -130,6 +143,7 @@ header h1 {
   opacity: 0;
   animation: fadeIn 0.5s ease-in-out forwards;
 }
+
 header p {
   color: #FFFFFF;
   text-shadow: 2px 2px 2px #1F1F1F;
@@ -137,10 +151,13 @@ header p {
   animation: fadeIn 0.5s ease-in-out 0.2s forwards;
 }
 
-#novedades, #mas-comprados {
+#novedades,
+#mas-comprados {
   text-align: center;
 }
-#novedades > h2, #mas-comprados > h2 {
+
+#novedades>h2,
+#mas-comprados>h2 {
   color: #1F1F1F;
   font-size: 75px;
   margin: 0;
@@ -162,18 +179,23 @@ header p {
   margin: 50px 10px 10px 10px;
   transition: transform 1s ease-in-out, opacity 1.5s ease-in-out;
 }
+
 #brands.translate {
   transform: translateY(-40px);
 }
+
 #brands .brand1 {
   grid-area: box1;
 }
+
 #brands .brand2 {
   grid-area: box2;
 }
+
 #brands .brand3 {
   grid-area: box3;
 }
+
 #brands .brand4 {
   grid-area: box4;
 }
@@ -185,33 +207,42 @@ header p {
   margin: 20px;
   gap: 30px;
 }
+
 #products .product1 {
   grid-area: box1;
 }
+
 #products .product2 {
   grid-area: box2;
 }
+
 #products .product3 {
   grid-area: box3;
 }
+
 #products .product4 {
   grid-area: box4;
 }
-#products > article {
+
+#products>article {
   display: grid;
 }
-#products > article > div {
+
+#products>article>div {
   background-color: #FFFFFF;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
 }
-#products > article img {
+
+#products>article img {
   transition: transform 0.5s ease ease-in-out;
 }
-#products > article:hover img {
+
+#products>article:hover img {
   transform: scale(1.1);
 }
-#products > article a {
+
+#products>article a {
   overflow: hidden;
 }
 
@@ -223,7 +254,8 @@ header p {
   margin-bottom: 10px;
 }
 
-.fotoSimbolo, .fotoSimboloAdidas {
+.fotoSimbolo,
+.fotoSimboloAdidas {
   object-fit: cover;
   border-radius: 20px;
   width: 125px;
@@ -242,6 +274,7 @@ header p {
   grid-area: video;
   position: relative;
 }
+
 .video-container .video-desc {
   position: absolute;
   inset: 0;
@@ -254,6 +287,7 @@ header p {
   justify-items: center;
   gap: 20px;
 }
+
 .video-container .video-desc h2 {
   grid-area: texto;
   color: #1F1F1F;
@@ -261,6 +295,7 @@ header p {
   margin: 0;
   color: #FFFFFF;
 }
+
 .video-container .video-desc a {
   grid-area: boton;
   margin: 0;
@@ -272,18 +307,22 @@ header p {
   margin-top: 10px;
   transition: height 0.5s ease;
 }
+
 .prod-desc p {
   font-size: 20px;
 }
+
 .prod-desc p span {
   font-size: 15px;
   color: grey;
   text-decoration: line-through;
 }
+
 .prod-desc strong {
   font-size: 20px;
   color: #1F1F1F;
 }
+
 .prod-desc .button {
   width: 100%;
   text-align: center;
@@ -300,12 +339,13 @@ header p {
   transition: background-color 0.5s ease, color 0.5s ease;
   width: 100%;
 }
+
 .button:hover {
   background-color: #1F1F1F;
   color: #FFFFFF;
 }
 
-footer > div {
+footer>div {
   height: 400px;
   background-color: #1F1F1F;
   padding-top: 30px;
@@ -315,26 +355,34 @@ footer > div {
   justify-items: center;
   gap: 1em;
 }
+
 footer #recursos {
   grid-area: recursos;
 }
+
 footer #about-us {
   grid-area: sobre-nosotros;
 }
+
 footer #suscripcion-pedidos {
   grid-area: otros;
 }
+
 footer ul {
   list-style-type: none;
   padding: 0;
 }
-footer p, footer h3 {
+
+footer p,
+footer h3 {
   color: #FFFFFF;
 }
+
 footer a {
   text-decoration: none;
   color: #FFFFFF;
 }
+
 footer a:hover {
   color: #D72631;
 }
@@ -343,6 +391,7 @@ footer a:hover {
   0% {
     opacity: 0;
   }
+
   100% {
     opacity: 1;
   }
