@@ -144,15 +144,8 @@ header p {
   margin-bottom: 30px;
 }
 
-/* Brands Grid -> Bootstrap Row */
-#brands {
-  /* Grid properties removed */
-  transition: transform 1s ease-in-out, opacity 1.5s ease-in-out;
-}
 
-#brands.translate {
-  transform: translateY(-40px);
-}
+
 
 /* Product Card Styling */
 /* Product Card Styling */
@@ -211,8 +204,6 @@ header p {
 .video-container {
   position: relative;
   overflow: hidden;
-  border-radius: 20px;
-  /* Original might not have had it on container, but on video? Original step 20 doesn't verify. adding it looks better. */
 }
 
 .video-container .video-desc {
@@ -222,8 +213,6 @@ header p {
   color: white;
   text-align: center;
   opacity: 1;
-  transition: opacity 0.3s ease;
-  /* Flexbox handled in HTML */
 }
 
 /* Specific override for button inside video to be smaller */
@@ -231,8 +220,6 @@ header p {
   width: auto;
   padding: 15px 50px;
   display: inline-block;
-  border-radius: 5px;
-  /* Optional slight radius for better look */
 }
 
 .video-container .video-desc h2 {
@@ -240,6 +227,8 @@ header p {
   margin: 0;
   color: #FFFFFF;
 }
+
+
 
 .prod-desc {
   color: #1F1F1F;
@@ -261,6 +250,17 @@ header p {
   font-size: 20px;
   color: #1F1F1F;
 }
+
+
+.products-carousel {
+  scroll-snap-type: x mandatory; /* fuerza que “encaje” cada tarjeta */
+}
+
+.products-carousel .col-12 {
+  scroll-snap-align: start; /* cada producto se alinea al inicio */
+}
+
+
 
 /* Custom Button Style Restoration */
 .button {
@@ -326,17 +326,18 @@ footer ul {
     font-size: 3rem;
   }
 
-  /* Allow images to be auto width on smaller screens if they overflow col */
-  .fotoMasNovedades,
-  .fotoMasComprados {
-    width: 100%;
-    height: auto;
-  }
+
 }
 
 @media (max-width: 576px) {
   header h1 {
     font-size: 40px;
+  }
+
+  .fotoMasNovedades {
+    height: 300px;
+    border-radius: 0px;    
+    margin: 0;
   }
 
   header p {
