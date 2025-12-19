@@ -57,7 +57,7 @@ async function getProducts() {
                 div.innerHTML = `
                     <h3>${product.Nombre}</h3>
                     <p>${product.Precio}</p>
-                    <a href="/">Ver más</a>
+                    <a href="producto.html?productId=${product.id}">Ver más</a>
                 `
                 productsList.append(div)
             })
@@ -71,28 +71,4 @@ async function getProducts() {
     }
 }
 
-async function getProduct(idProduct) {
-    try {
-        const product = await API.getDBProduct(idProduct);
-        const productContainer = document.getElementById("product-container")
-
-        if (product) {
-
-            let div = document.createElement("div");
-
-            div.innerHTML = `
-                <h3>${product.Nombre}<h3>
-                <p>${product.Precio}<p>
-            `
-            productContainer.append(div)
-
-        } else {
-            console.error('Error from server:', product);
-            alert('Hubo un error al añadir el producto. Revisa la consola para más detalles.');
-        }
-    } catch (error) {
-        console.error('Error sending data:', error);
-        alert('Error de conexión al intentar mostrar el producto.');
-    }
-}
 

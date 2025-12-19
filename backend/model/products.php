@@ -4,6 +4,9 @@ include 'producto.php';
 define("URL","http://localhost:3001/productos");
 
 class Products {
+
+    private $products;
+
     public function __construct() {
         $this->products = [];
     }

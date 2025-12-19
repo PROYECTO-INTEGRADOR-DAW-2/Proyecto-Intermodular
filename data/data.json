@@ -59,5 +59,14 @@
       "comentari": "Muy buena zapatilla",
       "data": "2025-11-14T14:44:56+00:00"
     }
+  ],
+  "valoracions": [
+    {
+      "id": "1",
+      "id_producte": "1",
+      "id_usuari": "1",
+      "puntuacion": "5",
+      "data": "2025-11-14T14:44:56+00:00"
+    }
   ]
 }
