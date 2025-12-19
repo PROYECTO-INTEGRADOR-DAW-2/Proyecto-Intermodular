@@ -3,6 +3,7 @@
 //Controller.php
 
 include '../model/products.php';
+include '../model/;'
 
 class Controller {
 
@@ -18,7 +19,13 @@ class Controller {
         
     }
 
-    public function getProduct($idProduct) {
+    public function getComments($idProduct) {
+        
+        return $this->products->getComments($idProduct);
+        
+    }
+
+    public function getComment($idProduct) {
         
         return $this->products->getProduct($idProduct);
         

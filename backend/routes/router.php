@@ -18,8 +18,8 @@ if(isset($_GET["action"])) {
         if ($input) {
             $controller->addProduct($input);
         }
-    } else if($_GET["action"] === "getProduct" && isset($_GET["idProduct"])) {
-        $product = $controller->getProduct($_GET["idProduct"]);
+    } else if($_GET["action"] === "getComments" && isset($_GET["idProduct"])) {
+        $product = $controller->getComments($_GET["idProduct"]);
 
         echo json_encode($product);
     }

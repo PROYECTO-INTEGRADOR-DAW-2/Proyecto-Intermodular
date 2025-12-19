@@ -41,3 +41,13 @@ export async function getDBProduct(idProduct) {
     return response.json();
 
 }
+
+export async function getDBComments(idProduct) {
+    let response = await fetch(`../backend/routes/router.php?action=getComments&idProduct=${idProduct}`);
+
+    if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`)
+    }
+
+    return response.json();
+}

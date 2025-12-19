@@ -15,14 +15,10 @@ body {
 body {
   background-color: #F5F5F5;
   padding-top: 100px;
-  /* Space for fixed navbar */
 }
 
-/* Removed main grid layout */
 
-/* Navbar Customization matching original aesthetics */
 #nav-section {
-  /* box-shadow already handled by original css? yes. */
   box-shadow: 0 0 19px rgba(0, 0, 0, 0.3);
   z-index: 1000;
   min-height: 100px;
@@ -31,11 +27,9 @@ body {
 
 #nav-section .logoPagina {
   height: 80px;
-  /* Adjusted to fit inside 100px nav nicely */
   width: auto;
 }
 
-/* Cleaned up Nav styles as Bootstrap handles structure */
 #nav-section .nav-link {
   color: #FFFFFF;
   transition: color 0.3s ease;
@@ -51,9 +45,7 @@ body {
   align-content: center;
   text-align: center;
   padding: 15px 40px;
-  /* Restored padding */
   border: 1px solid #D72631;
-  /* Restored border */
   border-radius: 10px;
   transition: background-color 0.5s ease;
   line-height: normal;
@@ -73,12 +65,10 @@ body {
   cursor: pointer;
   transition: color 0.5s ease;
   font-size: 1.2rem;
-  /* padding removed from a tag to let li handle box model or adjusted */
 }
 
 #nav-section input[type=text] {
   height: 40px;
-  /* adjusted slightly */
   padding: 10px;
   border: 2px solid transparent;
   background-color: #FFFFFF;
@@ -95,9 +85,6 @@ body {
   width: 40px;
   height: 40px;
   display: block;
-  /* If icons were white originally, they were likely images with white pixels or filtered.
-     Original had no filter in CSS but user says "igual que estaba antes".
-     The images are pngs. Assuming they are correct color. */
 }
 
 /* Header */
@@ -110,13 +97,11 @@ header {
   color: #FFFFFF;
   position: relative;
   display: flex;
-  /* Changed to flex for centering */
   align-items: center;
   justify-content: center;
   text-align: center;
 }
 
-/* Removed header > div absolute positioning, using flex instad */
 
 header h1 {
   font-size: 100px;
@@ -147,13 +132,10 @@ header p {
 
 
 
-/* Product Card Styling */
-/* Product Card Styling */
 #products>article>div {
   background-color: #FFFFFF;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
-  /* Ensure overflow hidden so top corners clip image if needed, though images have their own radius in original CSS? Original CSS had radius on images too. */
   border-bottom-left-radius: 0;
   border-bottom-right-radius: 0;
   transition: transform 0.3s ease;
@@ -163,14 +145,11 @@ header p {
   transform: translateY(-5px);
 }
 
-/* Images - restoring aesthetics with max-width for responsiveness */
 .fotoMasNovedades {
   object-fit: cover;
   border-radius: 20px;
   width: 100%;
-  /* Force full width of the column */
   height: 375px;
-  /* Fixed height for uniformity */
   margin-bottom: 10px;
 }
 
@@ -186,9 +165,7 @@ header p {
   object-fit: cover;
   border-radius: 0;
   width: 260px;
-  /* Original width */
   max-width: 100%;
-  /* Responsive constraint */
   height: 375px;
   transition: transform 0.4s ease;
 }
@@ -215,7 +192,6 @@ header p {
   opacity: 1;
 }
 
-/* Specific override for button inside video to be smaller */
 .video-container .video-desc .button {
   width: auto;
   padding: 15px 50px;
@@ -254,17 +230,15 @@ header p {
 
 .products-carousel {
   scroll-snap-type: x mandatory;
-  /* fuerza que “encaje” cada tarjeta */
 }
 
 .products-carousel .col-12 {
   scroll-snap-align: start;
-  /* cada producto se alinea al inicio */
 }
 
 
 
-/* Custom Button Style Restoration */
+
 .button {
   display: block;
   text-decoration: none;
@@ -312,7 +286,7 @@ footer ul {
   }
 }
 
-/* MEDIA QUERIES */
+
 
 @media (max-width: 992px) {
   header h1 {

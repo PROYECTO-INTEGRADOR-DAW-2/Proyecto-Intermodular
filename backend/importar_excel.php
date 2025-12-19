@@ -43,9 +43,7 @@ function obtenerIdsExistentes() {
  * Limpia el precio eliminando símbolos y normalizando decimales.
  */
 function limpiarPrecio($valor) {
-    // Quitar todo lo que no sea número, coma o punto
     $limpio = preg_replace('/[^\d,.]/', '', $valor);
-    // Convertir coma decimal a punto
     return str_replace(',', '.', $limpio);
 }
 
@@ -78,7 +76,7 @@ function importar_datos($rutaFichero) {
             $prod = [
                 "id" => 0, "Categoria" => "", "Nombre" => "", "Precio" => 0.0,
                 "Talla" => "", "Color" => "", "Stock" => 0, "Ajuste" => "",
-                "Sexo" => "", "Descripcion" => "", "Altura" => "", "Deporte" => "", "Oferta" => ""
+                "Sexo" => "", "Descripcion" => "", "Altura" => "", "Deporte" => "", "Oferta" => "", "Img" => ""
             ];
 
             // --------------------------------------------------
@@ -150,6 +148,9 @@ function importar_datos($rutaFichero) {
 
                     case "M": // Descripción
                         $prod["Descripcion"] = $val;
+                        break;
+                    case "N";
+                        $prod["Img"] = $val;
                         break;
                 }
             }
@@ -260,6 +261,13 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         <form action="" method="post" enctype="multipart/form-data">
             <label for="file"><strong>Selecciona el archivo Excel:</strong></label><br><br>
             <input type="file" name="ficheroExcel" id="file" required accept=".csv, .xlsx, .xls">
+            <br><br>
+            <input type="submit" value="🚀 Subir e Importar">
+        </form>
+
+        <form action="" method="post" enctype="multipart/form-data">
+            <label for="file"><strong>Añade las imagenes</strong></label><br><br>
+            <input type="file" name="imagenesProductos" id="imagenesProductos">
             <br><br>
             <input type="submit" value="🚀 Subir e Importar">
         </form>
