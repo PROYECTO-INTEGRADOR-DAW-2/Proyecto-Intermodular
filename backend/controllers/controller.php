@@ -55,6 +55,20 @@ class Controller {
         return $result;
     }
 
+    public function deleteComment($comment) {
+
+        if(!isset($_SESSION['user_id'])) {
+            $errorMsg = ["error" => true,
+                "errormsg" => "Debes iniciar sesion para poder eliminar el comentario"            
+            ];
+            return $errorMsg;
+        }
+
+    
+        $result = $this->comments->deleteComment($comment);
+        return $result;
+    }
+
     public function getProduct($idProduct) {
         
         return $this->products->getProduct($idProduct);

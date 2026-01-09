@@ -41,7 +41,15 @@ if(isset($_GET["action"])) {
             echo json_encode(["error" => true, "errormsg" => "No se han podido leer los datos internamente"]);
         }
         
-        
+    } else if($_GET["action"] === "deleteComment" && $_SERVER['REQUEST_METHOD'] === 'DELETE') {
+        $input = json_decode(file_get_contents('php://input'), true);
+
+        if ($input) {
+            $result = $controller->deleteComment($input);
+            echo json_encode($result);
+        } else {
+            echo json_encode(["error" => true, "errormsg" => "No se han podido leer los datos internamente"]);
+        }
     } else if($_GET["action"] === "getComments" && isset($_GET["idProduct"])) {
         $comments = $controller->getComments($_GET["idProduct"]);
 

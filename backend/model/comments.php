@@ -89,8 +89,8 @@ class Comments {
     }
 
     public function editComment(array $comment) {
-
-        //Actualizamos BBDD
+        $comment['id'] = (int) $comment['id'];
+        // 1. Actualizar en BBDD
         $ch = curl_init(COMMENTSURL . "/" . $comment['id']);
 
         curl_setopt_array($ch, [
@@ -104,18 +104,29 @@ class Comments {
 
         $response = curl_exec($ch);
 
-        if(curl_errno($ch)) {
-            return ["error" => true, "errormsg" => "Error al editar el nuevo comentario"];
+        if (curl_errno($ch)) {
+            curl_close($ch);
+            return [
+                "error" => true,
+                "errormsg" => "Error de comunicación al editar el comentario"
+            ];
         }
 
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
         curl_close($ch);
 
+        if ($httpCode >= 400) {
+            return [
+                "error" => true,
+                "errormsg" => "La API devolvió un error al editar el comentario"
+            ];
+        }
 
-        //Actualizamos localmente
+        // 2. Actualizar localmente
         $found = false;
 
         $this->comments = array_map(function ($c) use ($comment, &$found) {
-            if ($c->getId() == $comment['id']) {
+            if ($c->getId() === $comment['id']) {
                 $found = true;
                 return new Comment(
                     $comment['id'],
@@ -130,14 +141,71 @@ class Comments {
         }, $this->comments);
 
         if (!$found) {
-            return ["error" => true, "errormsg" => "Comentario no encontrado localmente"];
+            return [
+                "error" => true,
+                "errormsg" => "Comentario no encontrado localmente"
+            ];
         }
 
-
-
-        return ["error" => false, "successmsg" => "Comentario editado correctamente"];
+        return [
+            "error" => false,
+            "successmsg" => "Comentario editado correctamente"
+        ];
     }
 
+    public function deleteComment(array $comment){
+        $comment['id'] = (int) $comment['id'];
+        // 1. Eliminar localmente
+        $longitudAnterior = count($this->comments);
+
+        $this->comments = array_values(array_filter(
+            $this->comments,
+            fn($c) => $c->getId() !== $comment['id']
+        ));
+
+        if (count($this->comments) === $longitudAnterior) {
+            return [
+                "error" => true,
+                "errormsg" => "No se ha podido encontrar el comentario localmente"
+            ];
+        }
+
+        // 2. Eliminar en BBDD
+        $ch = curl_init(COMMENTSURL . "/" . $comment['id']);
+
+        curl_setopt_array($ch, [
+            CURLOPT_CUSTOMREQUEST => "DELETE",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json"
+            ]
+        ]);
+
+        $response = curl_exec($ch);
+
+        if (curl_errno($ch)) {
+            curl_close($ch);
+            return [
+                "error" => true,
+                "errormsg" => "Error de comunicación con la BBDD"
+            ];
+        }
+
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+
+        if ($httpCode >= 400) {
+            return [
+                "error" => true,
+                "errormsg" => "La API devolvió un error al eliminar el comentario"
+            ];
+        }
+
+        return [
+            "error" => false,
+            "successmsg" => "Se ha eliminado correctamente el comentario"
+        ];
+    }
 
     public function getComments($idProduct){
 

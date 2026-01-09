@@ -107,8 +107,8 @@ async function getComments(idProduct) {
                     <h6>Usuario ${comment.id_usuari}</h6>
                     <p>${comment.valoracion} estrellas</p>
                     <p>${comment.comentari}</p>
-                    ${SESSION_USER.admin == true ||SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit"><span>edit</span></button>' : ""}
-                    ${SESSION_USER.admin == true ||SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete"><span>delete</span></button>' : ""}
+                    ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit"><span>edit</span></button>' : ""}
+                    ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete"><span>delete</span></button>' : ""}
                 `
 
                 commentsContainer.append(div)
@@ -128,7 +128,7 @@ async function getComments(idProduct) {
                         event.preventDefault();
                         let confirmacion = confirm("Deseas eliminar el comentario?");
 
-                        if (confirmacion) deleteComment(comment);
+                        if (confirmacion) deleteComment(comment, div);
 
                     })
                 }
@@ -159,14 +159,14 @@ async function addComment(comment) {
 
             div.classList.add("comment", "col-6", "d-flex", "flex-column", "p-3");
             console.log(addComment.body.id)
-            div.id = addComment.body.id;
+            div.id = `comment-${addComment.body.id}`;
 
             div.innerHTML = `
                 <h6>Usuario ${comment.id_usuari}</h6>
                 <p>${comment.valoracion} estrellas</p>
                 <p>${comment.comentari}</p>
-                ${SESSION_USER.admin == true ||SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit"><span>edit</span></button>' : ""}
-                ${SESSION_USER.admin == true ||SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete"><span>delete</span></button>' : ""}
+                ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit"><span>edit</span></button>' : ""}
+                ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete"><span>delete</span></button>' : ""}
             `
 
             commentsContainer.append(div)
@@ -186,7 +186,7 @@ async function addComment(comment) {
                     event.preventDefault();
                     let confirmacion = confirm("Deseas eliminar el comentario?");
 
-                    if (confirmacion) deleteComment(comment);
+                    if (confirmacion) deleteComment(comment, div);
 
                 })
             }
@@ -262,6 +262,32 @@ async function editComment(comment) {
     } catch (error) {
         console.error('Error sending data:', error);
         alert('Error de conexión al intentar editar el comentario.');
+        return false;
+    }
+}
+
+async function deleteComment(comment, div) {
+    
+    try {
+        let deleteCommentResult = await API.deleteDBComment(comment);
+
+        const commentsContainer = document.getElementById("comments");
+        console.log(deleteCommentResult);
+
+        if (deleteComment.errormsg === undefined) {
+
+
+            return true;
+        } else {
+            console.error('Error from server:', deleteComment.errormsg);
+            alert('Hubo un error al eliminar el comentario. Revisa la consola para más detalles.');
+            return false;
+        }
+
+
+    } catch (error) {
+        console.error('Error sending data:', error);
+        alert('Error de conexión al intentar añadir el comentario.');
         return false;
     }
 }

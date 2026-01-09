@@ -54,6 +54,26 @@ export async function editDBComment(comment) {
 
 }
 
+export async function deleteDBComment(comment) {
+
+    let response = await fetch(`../backend/routes/router.php?action=deleteComment`, {
+        method: "DELETE",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(comment)
+    });
+
+    if (!response.ok) {
+        throw new Error(`Error: ${response.statusText}`)
+    }
+
+    return response.json();
+
+}
+
+
+
 export async function getDBProducts() {
 
     let response = await fetch(`../backend/routes/router.php?action=getProducts`);
