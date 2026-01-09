@@ -39,40 +39,48 @@
         </div>
     </nav>
     <main>
-        <section id="product">
-            <div class="d-flex justify-items-center g-5">
-                <div class="col-6 col-md-6 col-lg-6 text-center" id="product-img-container">
-                    <!--IMG PRODUCTO-->
-                    <img src="./img/AdidasMasComprado.png" alt="imagen" id="imagen-producto">
+        <div class="container-fluid">
+            <section id="product" class="row">
+                <div class="d-flex justify-items-center g-5">
+                    <div class="col-6 col-md-6 col-lg-6 text-center" id="product-img-container">
+                        <!--IMG PRODUCTO-->
+                        <img src="./img/AdidasMasComprado.png" alt="imagen" id="imagen-producto">
+                    </div>
+                    <div class="col-6 col-md-6 col-lg-6" id="product-data">
+                        <!--NOMBRE, PRECIO, AÑADIR AL CARRITO-->
+                    </div>
                 </div>
-                <div class="col-6 col-md-6 col-lg-6" id="product-data">
-                    <!--NOMBRE, PRECIO, AÑADIR AL CARRITO-->
-                </div>
-            </div>
-        </section>
-        <section id="comments">
+            </section>
 
-        </section>
+            <h1>Opiniones</h1>
+            <section id="comments" class="row my-3">
+            </section>
 
-        <section id="add-comment">
-            <form action="" method="POST">
-                <label for="valoracion">
-                    Estrellas
-                    <select name="valoracion" id="valoracion">
-                        <option value="1">1 estrella</option>
-                        <option value="2">2 estrellas</option>
-                        <option value="3">3 estrellas</option>
-                        <option value="4">4 estrellas</option>
-                        <option value="5">5 estrellas</option>
-                    </select>
-                </label>
+            <h1 id="comment-header-section">Añade una opinion</h1>
+            <section id="add-comment" class="row my-3">
+                <form action="" method="post" id="add-comment-form" class="d-flex flex-column">
+                    <input type="hidden" id="id-comment" readonly hidden>
+                    <label for="valoracion">
+                        Estrellas
+                        <select name="valoracion" id="valoracion">
+                            <option value="1">1 estrella</option>
+                            <option value="2">2 estrellas</option>
+                            <option value="3">3 estrellas</option>
+                            <option value="4">4 estrellas</option>
+                            <option value="5">5 estrellas</option>
+                        </select>
+                    </label>
 
-                <label for="comments">
-                    <textarea name="comments" id="comments" cols="20" ></textarea>
-                </label>
-            </form>
-        </section>
+                    <label for="comment">
+                        <textarea name="comment" id="comment" cols="20"></textarea>
+                    </label>
+                    <input type="submit" value="enviar">
+                    <input type="reset" value="reset">
+                </form>
+            </section>
 
+        </div>
+        
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

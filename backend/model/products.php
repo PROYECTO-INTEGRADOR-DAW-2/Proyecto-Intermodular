@@ -33,10 +33,12 @@ class Products {
         curl_close($curl);
 
 
+
         // POST con el nuevo producto
         $post = curl_init(URL);
         curl_setopt($post, CURLOPT_POST, true);
-        curl_setopt($post, CURLOPT_POSTFIELDS, http_build_query($product));
+        curl_setopt($post, CURLOPT_POSTFIELDS, json_encode($product));
+        curl_setopt($post, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         curl_setopt($post, CURLOPT_RETURNTRANSFER, true);
 
         curl_exec($post);

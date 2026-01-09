@@ -70,5 +70,3 @@ async function getProducts() {
         alert('Error de conexión al intentar mostrar los productos');
     }
 }
-
-

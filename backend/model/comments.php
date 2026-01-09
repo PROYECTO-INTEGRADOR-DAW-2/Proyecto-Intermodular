@@ -1,20 +1,45 @@
 <?php
 //Products.php
 include 'comment.php';
-define("URL","http://localhost:3001/comments");
+define("COMMENTSURL","http://localhost:3001/comentaris");
 
 class Comments {
 
     private $comments;
 
     public function __construct() {
-        $this->comments = [];
+
+        $ch = curl_init(COMMENTSURL);
+        curl_setopt_array($ch, [CURLOPT_RETURNTRANSFER => true]);
+        $response = curl_exec($ch);
+
+        if(curl_errno($ch)) {
+            throw new Exception("Error al obtener los comentarios");
+        }
+
+        curl_close($ch);
+
+        $commentsArray = json_decode($response, true);
+
+        $this->comments = array_map(fn($comment) => new Comment(
+                    $comment['id'],
+                    $comment['id_producte'],
+                    $comment['id_usuari'],
+                    $comment['comentari'],
+                    $comment['valoracion'],
+                    $comment['data'])
+        , $commentsArray
+        );
+
+
+
     }
+
 
     public function addComment(array $comment) {
 
-        // Obtener todos los productos
-        $curl = curl_init(URL);
+        // Obtener todos los comentarios
+        $curl = curl_init(COMMENTSURL);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($curl);
 
@@ -24,25 +49,27 @@ class Comments {
             // Obtener último y sumar ID
             $ultimo = end($comments);
             $comment["id"] = strval($ultimo["id"] + 1);
+            
 
         } else {
-            echo "Error GET: ".curl_error($curl);
-            return;
+            curl_close($curl);
+            return ["error" => true, "errormsg" => "Internal Error: Error al obtener el ultimo id de comentario"];
         }
 
         curl_close($curl);
+        
 
-
-        // POST con el nuevo producto
-        $post = curl_init(URL);
+        // POST con el nuevo comentario
+        $post = curl_init(COMMENTSURL);
         curl_setopt($post, CURLOPT_POST, true);
-        curl_setopt($post, CURLOPT_POSTFIELDS, http_build_query($comment));
+        curl_setopt($post, CURLOPT_POSTFIELDS, json_encode($comment));
+        curl_setopt($post, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
         curl_setopt($post, CURLOPT_RETURNTRANSFER, true);
 
         curl_exec($post);
 
         if(curl_errno($post)) {
-            echo "Error POST: ".curl_error($post);
+            return ["error" => true, "errormsg" => "Error al añadir el nuevo comentario"];
         }
 
         curl_close($post);
@@ -53,21 +80,77 @@ class Comments {
             $comment['id'],
             $comment['id_producte'],
             $comment['id_usuari'],
-            $comment['commentari'],
+            $comment['comentari'],
             $comment['valoracion'],
             $comment['data']
         );
+
+        return ["error" => false, "successmsg" => "Comentario añadido correctamente", "body" => $comment];
+    }
+
+    public function editComment(array $comment) {
+
+        //Actualizamos BBDD
+        $ch = curl_init(COMMENTSURL . "/" . $comment['id']);
+
+        curl_setopt_array($ch, [
+            CURLOPT_CUSTOMREQUEST => "PATCH",
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
+                "Content-Type: application/json"
+            ],
+            CURLOPT_POSTFIELDS => json_encode($comment)
+        ]);
+
+        $response = curl_exec($ch);
+
+        if(curl_errno($ch)) {
+            return ["error" => true, "errormsg" => "Error al editar el nuevo comentario"];
+        }
+
+        curl_close($ch);
+
+
+        //Actualizamos localmente
+        $found = false;
+
+        $this->comments = array_map(function ($c) use ($comment, &$found) {
+            if ($c->getId() == $comment['id']) {
+                $found = true;
+                return new Comment(
+                    $comment['id'],
+                    $comment['id_producte'],
+                    $comment['id_usuari'],
+                    $comment['comentari'],
+                    $comment['valoracion'],
+                    $comment['data']
+                );
+            }
+            return $c;
+        }, $this->comments);
+
+        if (!$found) {
+            return ["error" => true, "errormsg" => "Comentario no encontrado localmente"];
+        }
+
+
+
+        return ["error" => false, "successmsg" => "Comentario editado correctamente"];
     }
 
 
-    public function getComments(){
-        $peticion = curl_init();
-        curl_setopt($peticion, CURLOPT_URL, URL);
+    public function getComments($idProduct){
+
+        $url = "http://localhost:3001/comentaris?id_producte=$idProduct";
+        
+        $peticion = curl_init($url);
+
         curl_setopt($peticion, CURLOPT_RETURNTRANSFER, true);
+
         $response = curl_exec($peticion);
 
         if (curl_errno($peticion)) {
-            echo "Error: " . curl_error($peticion);
+            return ["error" => true, "errormsg" => "Error al obtener los comentarios"];
         }
 
         curl_close($peticion);
@@ -77,14 +160,14 @@ class Comments {
     }
 
     public function getComment($idComment){
-        $url = "http://localhost:3001/productos/$idComment";
+        $url = "http://localhost:3001/comentaris/$idComment";
 
         $peticion = curl_init($url);
         curl_setopt($peticion, CURLOPT_RETURNTRANSFER, true);
         $response = curl_exec($peticion);
 
         if (curl_errno($peticion)) {
-            echo "Error: " . curl_error($peticion);
+            return ["error" => true, "errormsg" => "Error al obtener el comentario"];
         }
 
         curl_close($peticion);

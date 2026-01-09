@@ -91,14 +91,19 @@ main {
 #comments {
     overflow-y: scroll;
     height: 300px;
-    border: 1px solid #D72631;
+    border: 5px solid grey;
 }
 
 .comment {
-    border-radius: 20px;
     background-color: #F5F5F5;
-    border: 1px solid #D72631;
+    border-bottom: 1px solid grey;
 }
+
+.comment:nth-last-child {
+    background-color: #F5F5F5;
+}
+
+
 
 
 

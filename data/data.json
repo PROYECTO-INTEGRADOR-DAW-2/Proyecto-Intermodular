@@ -58,9 +58,25 @@
       "id": "1",
       "id_producte": "1",
       "id_usuari": "1",
-      "comentari": "Muy buena zapatilla",
+      "comentari": "esta bien",
       "valoracion": "2",
-      "data": "2025-11-14T14:44:56+00:00"
+      "data": "2026-01-05T14:36:07+00:00"
+    },
+    {
+      "id": "2",
+      "id_producte": "1",
+      "id_usuari": "1",
+      "comentari": "ss",
+      "valoracion": "3",
+      "data": "2026-01-05T15:52:07+00:00"
+    },
+    {
+      "id": "3",
+      "id_producte": "1",
+      "id_usuari": "1",
+      "comentari": "Esta cañon la v",
+      "valoracion": "5",
+      "data": "2026-01-05T15:52:29+00:00"
     }
   ]
 }
