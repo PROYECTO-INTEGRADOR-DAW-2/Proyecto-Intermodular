@@ -1,28 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Añadir nuevo producto - J&A Sports. Panel de administración.">
     <title>Añadir producto</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="./css/añadirProducto.css">
 </head>
 
 <body>
-    <nav id="nav-section">
-        <img src="./img/logo.png" alt="imagen-logo" class="logoPagina">
-        <ul id="main-nav">
-            <li><a href="">Hombre</a></li>
-            <li><a href="">Mujer</a></li>
-            <li><a href="">Niños</a></li>
-        </ul>
+    <nav id="nav-section" class="navbar navbar-expand-lg fixed-top" style="background-color: #1F1F1F;">
+        <div class="container-fluid">
 
-        <input type="text" placeholder="Buscar">
+            <div class="d-flex align-items-center justify-content-between w-100 d-lg-none">
+                <a href="./home.html">
+                    <img src="./img/logo.png" alt="Logotipo de J&A Sports" class="logoPagina img-fluid"
+                        style="height: 50px;">
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent"
+                    aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation"
+                    style="border: 1px solid #D72631;">
+                    <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+                </button>
+            </div>
 
-        <ul id="icon-nav">
-            <li><a href="../backend/auth/login.php"><img src="img/user.png" alt=""></a></li>
-            <li><a href="#"><img src="img/carrito.png" alt=""></a></li>
-        </ul>
+
+            <div class="collapse navbar-collapse" id="navbarContent">
+                <div class="row w-100 align-items-center g-0">
+
+                    <div class="col-lg-1 d-none d-lg-block text-center">
+                        <a href="./home.html">
+                            <img src="./img/logo.png" alt="Logotipo de J&A Sports" class="logoPagina img-fluid">
+                        </a>
+                    </div>
+
+
+                    <div class="col-lg-4 col-md-12 mt-3 mt-lg-0">
+                        <ul id="main-nav"
+                            class="d-flex flex-column flex-lg-row justify-content-around list-unstyled m-0 gx-0 gap-2 gap-lg-0">
+                            <li><a href="#">Hombre</a></li>
+                            <li><a href="#">Mujer</a></li>
+                            <li><a href="#">Niños</a></li>
+                            <li><a href="./productos.html">Productos</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Search Bar -->
+                    <div class="col-lg-5 col-md-12 my-3 my-lg-0 px-lg-3">
+                        <input type="text" placeholder="Buscar" aria-label="Buscar productos" class="w-100">
+                    </div>
+
+                    <!-- Icons -->
+                    <div class="col-lg-2 col-md-12 d-flex justify-content-center justify-content-lg-end">
+                        <ul id="icon-nav" class="d-flex list-unstyled m-0 gap-3">
+                            <li><a href="../backend/auth/login.php" aria-label="Iniciar sesión"><img src="img/user.png"
+                                        alt="Icono de usuario"></a></li>
+                            <li><a href="./carrito.html" aria-label="Ver carrito"><img src="img/carrito.png"
+                                        alt="Icono del carrito"></a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
     </nav>
     <section id="form-section">
         <form method="post">
@@ -111,6 +154,9 @@
         </form>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
     <script type="module" src="./js/app.js"></script>
 
 </body>

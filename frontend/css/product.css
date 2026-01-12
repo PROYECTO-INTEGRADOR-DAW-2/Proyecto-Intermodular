@@ -85,22 +85,22 @@ body {
 
 
 main {
-    margin-top: 5em;
+  margin-top: 5em;
 }
 
 #comments {
-    overflow-y: scroll;
-    height: 300px;
-    border: 5px solid grey;
+  overflow-y: scroll;
+  height: 300px;
+  border: 5px solid grey;
 }
 
 .comment {
-    background-color: #F5F5F5;
-    border-bottom: 1px solid grey;
+  background-color: #F5F5F5;
+  border-bottom: 1px solid grey;
 }
 
 .comment:nth-last-child {
-    background-color: #F5F5F5;
+  background-color: #F5F5F5;
 }
 
 
@@ -108,7 +108,7 @@ main {
 
 
 @media (max-width: 992px) {
-  
+
   #nav-section {
     height: auto;
     padding-top: 10px;
@@ -126,7 +126,83 @@ main {
   }
 }
 
-@media (max-width: 576px) {
+@media (max-width: 576px) {}
 
-  
+/* Estilos para el formulario de comentarios */
+#add-comment {
+  justify-content: center;
+}
+
+#add-comment-form {
+  background-color: #FFFFFF;
+  padding: 30px;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+  width: 100%;
+  gap: 15px;
+}
+
+#add-comment-form label {
+  font-weight: 500;
+  color: #1F1F1F;
+  font-size: 1.1rem;
+}
+
+#add-comment-form select,
+#add-comment-form textarea {
+  padding: 12px;
+  border: 2px solid #E0E0E0;
+  border-radius: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1rem;
+  width: 100%;
+  transition: border-color 0.3s ease;
+}
+
+#add-comment-form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+#add-comment-form select:focus,
+#add-comment-form textarea:focus {
+  outline: none;
+  border-color: #D72631;
+  box-shadow: 0 0 0 3px rgba(215, 38, 49, 0.1);
+}
+
+#add-comment-form input[type='submit'],
+#add-comment-form input[type='reset'] {
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-size: 1.1rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, border-color 0.3s ease;
+  margin-top: 10px;
+}
+
+#add-comment-form input[type='submit'] {
+  background-color: #D72631;
+  color: #FFFFFF;
+  border: 1px solid #D72631;
+}
+
+#add-comment-form input[type='submit']:hover,
+#add-comment-form input[type='submit']:focus {
+  background-color: #1F1F1F;
+  color: #FFFFFF;
+}
+
+#add-comment-form input[type='reset'] {
+  background-color: #E0E0E0;
+  color: #1F1F1F;
+  border: 1px solid #E0E0E0;
+}
+
+#add-comment-form input[type='reset']:hover,
+#add-comment-form input[type='reset']:focus {
+  background-color: #c0c0c0;
 }

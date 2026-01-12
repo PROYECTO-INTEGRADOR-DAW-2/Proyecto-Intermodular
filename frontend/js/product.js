@@ -28,16 +28,16 @@ document.addEventListener('DOMContentLoaded', async (event) => {
                 const now = new Date();
                 const data = now.toISOString().replace(/\.\d{3}Z$/, '+00:00');
                 if (id_usuari) {
-                    
-                    if(formMode === "add") {
+
+                    if (formMode === "add") {
                         let payload = { id_producte, id_usuari, comentari, valoracion, data };
                         let addCommentResult = await addComment(payload)
                     } else if (formMode === "edit") {
-                        let id = document.getElementById("id-comment").value; 
-                        let payload = {id, id_producte, id_usuari, comentari, valoracion, data };
+                        let id = document.getElementById("id-comment").value;
+                        let payload = { id, id_producte, id_usuari, comentari, valoracion, data };
                         let editCommentResult = await editComment(payload)
                     }
-                    
+
                 } else {
                     alert("Debes de iniciar sesion para comentar")
                 }
@@ -52,6 +52,9 @@ document.addEventListener('DOMContentLoaded', async (event) => {
 
 
 })
+
+
+//------PRODUCT------
 
 //Obtenemos la informacion del producto para aplicarla en la plantilla(Producto.html)
 async function getProduct(idProduct) {
@@ -85,6 +88,11 @@ async function getProduct(idProduct) {
     }
 }
 
+
+
+//------COMMENTS------
+
+
 //Funcion para obtener los comentarios del producto
 async function getComments(idProduct) {
     try {
@@ -107,24 +115,24 @@ async function getComments(idProduct) {
                     <h6>Usuario ${comment.id_usuari}</h6>
                     <p>${comment.valoracion} estrellas</p>
                     <p>${comment.comentari}</p>
-                    ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit"><span>edit</span></button>' : ""}
-                    ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete"><span>delete</span></button>' : ""}
+                    ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit" aria-label="Editar comentario"><span>edit</span></button>' : ""}
+                    ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete" aria-label="Eliminar comentario"><span>delete</span></button>' : ""}
                 `
 
                 commentsContainer.append(div)
 
-                if(div.querySelector(".edit") !== null) {
+                if (div.querySelector(".edit") !== null) {
                     let button = div.querySelector(".edit");
-                    button.addEventListener("click",(event) => {
+                    button.addEventListener("click", (event) => {
                         event.preventDefault();
                         formMode = "edit"
                         fillFormData(comment);
                     })
                 }
 
-                if(div.querySelector(".delete") !== null) {
+                if (div.querySelector(".delete") !== null) {
                     let button = div.querySelector(".delete");
-                    button.addEventListener("click",(event) => {
+                    button.addEventListener("click", (event) => {
                         event.preventDefault();
                         let confirmacion = confirm("Deseas eliminar el comentario?");
 
@@ -165,24 +173,24 @@ async function addComment(comment) {
                 <h6>Usuario ${comment.id_usuari}</h6>
                 <p>${comment.valoracion} estrellas</p>
                 <p>${comment.comentari}</p>
-                ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit"><span>edit</span></button>' : ""}
-                ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete"><span>delete</span></button>' : ""}
+                ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit" aria-label="Editar comentario"><span>edit</span></button>' : ""}
+                ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete" aria-label="Eliminar comentario"><span>delete</span></button>' : ""}
             `
 
             commentsContainer.append(div)
 
-            if(div.querySelector(".edit") !== null) {
+            if (div.querySelector(".edit") !== null) {
                 let button = div.querySelector(".edit");
-                button.addEventListener("click",(event) => {
+                button.addEventListener("click", (event) => {
                     event.preventDefault();
                     formMode = "edit"
                     fillFormData(comment);
                 })
             }
 
-            if(div.querySelector(".delete") !== null) {
+            if (div.querySelector(".delete") !== null) {
                 let button = div.querySelector(".delete");
-                button.addEventListener("click",(event) => {
+                button.addEventListener("click", (event) => {
                     event.preventDefault();
                     let confirmacion = confirm("Deseas eliminar el comentario?");
 
@@ -224,26 +232,26 @@ async function editComment(comment) {
                 <h6>Usuario ${comment.id_usuari}</h6>
                 <p>${comment.valoracion} estrellas</p>
                 <p>${comment.comentari}</p>
-                ${SESSION_USER.admin == true ||SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit"><span>edit</span></button>' : ""}
-                ${SESSION_USER.admin == true ||SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete"><span>delete</span></button>' : ""}
+                ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="edit" aria-label="Editar comentario"><span>edit</span></button>' : ""}
+                ${SESSION_USER.admin == true || SESSION_USER?.id && comment.id_usuari === SESSION_USER.id ? '<button class="delete" aria-label="Eliminar comentario"><span>delete</span></button>' : ""}
             `
 
             let oldComment = commentsContainer.querySelector(`#comment-${comment.id}`);
 
             oldComment.replaceWith(div);
 
-            if(div.querySelector(".edit") !== null) {
+            if (div.querySelector(".edit") !== null) {
                 let button = div.querySelector(".edit");
-                button.addEventListener("click",(event) => {
+                button.addEventListener("click", (event) => {
                     event.preventDefault();
                     formMode = "edit"
                     fillFormData(comment);
                 })
             }
 
-            if(div.querySelector(".delete") !== null) {
+            if (div.querySelector(".delete") !== null) {
                 let button = div.querySelector(".delete");
-                button.addEventListener("click",(event) => {
+                button.addEventListener("click", (event) => {
                     event.preventDefault();
                     let confirmacion = confirm("Deseas eliminar el comentario?");
 
@@ -267,7 +275,7 @@ async function editComment(comment) {
 }
 
 async function deleteComment(comment, div) {
-    
+
     try {
         let deleteCommentResult = await API.deleteDBComment(comment);
 
@@ -275,7 +283,6 @@ async function deleteComment(comment, div) {
         console.log(deleteCommentResult);
 
         if (deleteComment.errormsg === undefined) {
-
 
             return true;
         } else {
@@ -286,11 +293,14 @@ async function deleteComment(comment, div) {
 
 
     } catch (error) {
-        console.error('Error sending data:', error);
+        console.error('Error sending data:', error.errormsg);
         alert('Error de conexión al intentar añadir el comentario.');
         return false;
     }
 }
+
+
+//------FORM------
 
 //Funcion para completar el formulario para edicion de comentario
 function fillFormData(comment) {
@@ -311,12 +321,16 @@ function fillFormData(comment) {
 //Funcion para resetear formulario
 function addResetHandler() {
     let resetBtn = document.getElementById("add-comment-form").querySelector('input[type="reset"]');
-    resetBtn.addEventListener("click",() => {
+    resetBtn.addEventListener("click", () => {
         formMode = "add";
         let headerCommentSection = document.getElementById("comment-header-section");
         headerCommentSection.textContent = "Añade una opinion";
     })
 }
+
+
+
+
 
 //Funcion para obtener el usuario autenticado
 async function getSessionUser() {
