@@ -93,7 +93,7 @@ class Products {
         $response = curl_exec($peticion);
 
         if (curl_errno($peticion)) {
-            echo "Error: " . curl_error($peticion);
+            return ["error" => true, "errormsg" => "Error al obtener el producto"];
         }
 
         curl_close($peticion);

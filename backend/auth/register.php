@@ -123,25 +123,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="ca">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registre Usuari</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../../frontend/css/style.css">
     <link rel="stylesheet" href="../../frontend/css/auth.css">
 </head>
 <body>
-    <nav id="nav-section">
-         <img src="../../frontend/img/logo.png" alt="imagen-logo" class="logoPagina">
-        <ul id="main-nav">
-            <li><a href="">Hombre</a></li>
-            <li><a href="">Mujer</a></li>
-            <li><a href="">Niños</a></li>
-        </ul>
-
-        <input type="text" placeholder="Buscar">
-
-        <ul id="icon-nav">
-            <li><a href="login.php"><img src="../../frontend/img/user.png" alt=""></a></li>
-            <li><a href="#"><img src="../../frontend/img/carrito.png" alt=""></a></li>
-        </ul>
-    </nav>
+    <?php 
+        $base_path = "../../";
+        include "../includes/navbar.php"; 
+    ?>
 
     <section>
         <h2>Registre Usuari</h2>
@@ -178,5 +171,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <a href="login.php" class="auth-link">¿Ya tienes cuenta? Inicia sesión</a>
     </section>
 
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

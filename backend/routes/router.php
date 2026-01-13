@@ -63,6 +63,10 @@ if(isset($_GET["action"])) {
         $user = $controller->getSessionUser();
 
         echo json_encode($user);
+    } else if ($_GET["action"] === "getAverageRating" && isset($_GET["idProduct"])) {
+        $averageRating = $controller->getAverageRating($_GET["idProduct"]);
+        
+        echo json_encode($averageRating);
     }
 }
 ?>

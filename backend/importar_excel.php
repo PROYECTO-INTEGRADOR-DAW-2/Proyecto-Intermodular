@@ -242,19 +242,27 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Importador de Productos</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="../frontend/css/style.css">
     <style>
-        body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; }
+        body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 0 1rem; line-height: 1.6; padding-top: 120px; }
         .console { background: #f4f4f4; padding: 15px; border-radius: 5px; border: 1px solid #ddd; max-height: 400px; overflow-y: auto; margin-bottom: 20px;}
         .success { color: green; margin: 5px 0; }
         .error { color: red; font-weight: bold; margin: 5px 0; }
         .warning { color: orange; margin: 5px 0; }
         .info { color: #555; font-style: italic; }
-        form { background: #eef; padding: 20px; border-radius: 8px; }
+        form { background: #eef; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
         input[type="submit"] { background: #007bff; color: white; border: none; padding: 10px 20px; cursor: pointer; border-radius: 4px; }
         input[type="submit"]:hover { background: #0056b3; }
     </style>
 </head>
 <body>
+    <?php 
+        $base_path = "../";
+        include "includes/navbar.php"; 
+    ?>
+
     <h1>Importar Productos (Excel)</h1>
     
     <section>
@@ -272,5 +280,9 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
             <input type="submit" value="🚀 Subir e Importar">
         </form>
     </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
 </body>
 </html>

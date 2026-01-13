@@ -283,7 +283,7 @@ async function deleteComment(comment, div) {
         console.log(deleteCommentResult);
 
         if (deleteComment.errormsg === undefined) {
-
+            div.remove();
             return true;
         } else {
             console.error('Error from server:', deleteComment.errormsg);
@@ -293,11 +293,32 @@ async function deleteComment(comment, div) {
 
 
     } catch (error) {
-        console.error('Error sending data:', error.errormsg);
+        console.error('Error sending data:', error);
         alert('Error de conexión al intentar añadir el comentario.');
         return false;
     }
 }
+
+async function getAverageRating(idProduct) {
+    try {
+        let valoracionMedia = await API.getDBAverageRating(idProduct);
+
+        if(valoracionMedia.errormsg === undefined) {
+            let valoracionMediaElement = document.getElementById("average-rating");
+            valoracionMediaElement.textContent = valoracionMedia.body;
+        } else {
+            console.error('Error from server:', valoracionMedia.errormsg);
+            alert('Hubo un error al añadir el comentario. Revisa la consola para más detalles.');
+            return false;
+        }
+    } catch (error) {
+        console.error('Error sending data:', error);
+        alert('Error de conexión al intentar obtener la valoracion media.');
+        return false;
+    }
+
+}
+
 
 
 //------FORM------
